@@ -1,7 +1,7 @@
-html {
-	touch-action: pan-x pan-y;
-	height: 100%; /* prevent pinch-zoom at page bottom */
-  }
+// html {
+// 	touch-action: pan-x pan-y;
+// 	height: 100%; /* prevent pinch-zoom at page bottom */
+// }
 
 *,
 *:before,
@@ -13,8 +13,8 @@ html {
 
 body {
 	font-family: $mainFontFamily;
-	overscroll-behavior-y: none;
-	-webkit-overflow-scrolling: touch;
+	// overscroll-behavior-y: none;
+	// -webkit-overflow-scrolling: touch;
 	min-height: 100%;
 }
 
@@ -64,6 +64,3 @@ body {
 	}
 }
 
-.overflow-hidden {
-    overflow: hidden;
-}

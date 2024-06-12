@@ -791,6 +791,15 @@ class StoriesCarousel {
         observer.observe(swiperWrapper, {
             childList: true,
         });
+
+        document.addEventListener('contextmenu', function (event) {
+            if (event.target.tagName === 'IMG') {
+                event.preventDefault();
+            }
+            if (event.target.tagName === 'VIDEO') {
+                event.preventDefault();
+            }
+        })
     }
 
     _checkButtonsVisibility(swiper) {
@@ -1013,15 +1022,6 @@ window.addEventListener('DOMContentLoaded', () => {
     if (isMobile()) {
         document.body.classList.add('mobile-device');
     }
-
-    document.addEventListener('contextmenu', function (event) {
-        if (event.target.tagName === 'IMG') {
-            event.preventDefault();
-        }
-        if (event.target.tagName === 'VIDEO') {
-            event.preventDefault();
-        }
-    })
 
     {
     const storiesNavigation = document.querySelector('[data-slider="stories-nav"]');

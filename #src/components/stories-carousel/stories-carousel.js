@@ -152,6 +152,15 @@ class StoriesCarousel {
         observer.observe(swiperWrapper, {
             childList: true,
         });
+
+        document.addEventListener('contextmenu', function (event) {
+            if (event.target.tagName === 'IMG') {
+                event.preventDefault();
+            }
+            if (event.target.tagName === 'VIDEO') {
+                event.preventDefault();
+            }
+        })
     }
 
     _checkButtonsVisibility(swiper) {

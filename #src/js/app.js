@@ -95,14 +95,5 @@ window.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('mobile-device');
     }
 
-    document.addEventListener('contextmenu', function (event) {
-        if (event.target.tagName === 'IMG') {
-            event.preventDefault();
-        }
-        if (event.target.tagName === 'VIDEO') {
-            event.preventDefault();
-        }
-    })
-
     @@include('../components/stories-nav/stories-nav.js')
 });	
