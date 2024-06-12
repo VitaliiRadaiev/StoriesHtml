@@ -1,0 +1,120 @@
+.stories-nav {
+    position: relative;
+
+    & .swiper {
+        z-index: 1;
+
+        &:not(.swiper-initialized) {
+            & .swiper-wrapper {
+                gap: 20px;
+            }
+        }
+    }
+    .swiper-wrapper {
+    }
+    & .swiper-slide {
+        width: auto;
+    }
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 34px;
+    height: 34px;
+    cursor: pointer;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+    & img {
+        width: 100%;
+        display: block;
+        height: auto;
+    }
+
+    &.swiper-button-disabled {
+        display: none;
+    }
+
+    &.btn-left {
+        left: -15px;
+    }
+    &.btn-right {
+        right: -15px;
+    }
+}
+
+.stories-nav-item {
+    height: 71px;
+    width: 71px;
+    border-radius: 999px;
+    position: relative;
+    padding: 4px;
+    background: linear-gradient(139.43deg, #23e 2.68%, #1e2899 59.22%, #6d77de 96.05%);
+    cursor: pointer;
+    border: none;
+    outline: none;
+
+    &.stories-nav-item--viewed {
+        background: linear-gradient(132.36deg, #777775 4.37%, #c1c1c1 47.52%, #e8e8e8 86.4%);
+    }
+
+    & img {
+        height: 100%;
+        width: 100%;
+        border-radius: 999px;
+        position: relative;
+        z-index: 2;
+        object-fit: cover;
+    }
+
+    &:before {
+        position: absolute;
+        content: "";
+        z-index: 1;
+        top: 2px;
+        right: 2px;
+        bottom: 2px;
+        left: 2px;
+        background: #fff;
+        border-radius: 999px;
+    }
+}
+
+@media (max-width: 919.98px) {
+    .stories-nav {
+        margin-left: -15px;
+        margin-right: -15px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        overflow-y: hidden;
+        height: 71px;
+
+        & .swiper {
+            overflow: auto hidden;
+            width: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-left: 0;
+            margin-right: 0;
+            display: flex;
+            flex-direction: row;
+            flex-shrink: 0;
+            height: 90px;
+        }
+        & .swiper-wrapper {
+            gap: 20px;
+            width: auto;
+        }
+
+        & .slider-btn {
+            display: none;
+        }
+    }
+}

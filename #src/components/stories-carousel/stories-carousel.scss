@@ -1,0 +1,109 @@
+.stories-carousel {
+    @media (min-width: 920px) {
+        font-size: 1.2195dvh;
+        padding: 30px 0;
+        height: 100dvh;
+        width: 42.6em;
+        margin: 0 auto;
+        position: relative;
+
+        & .swiper {
+            height: 100%;
+            overflow: visible;
+
+            & .swiper-slide {
+                height: 100%;
+                transition: scale 0.3s ease;
+                scale: 1.001;
+                animation: fadeIn 0.4s ease forwards;
+
+                &:not(.swiper-slide-active) {
+                    scale: (0.5);
+
+                    & .stories-card {
+                        cursor: pointer;
+                        transition: scale 0.3s ease;
+
+                        @media #{$mouse-device} {
+                            &:hover {
+                                scale: 1.02;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        & .slider-btn {
+            border-radius: 999px;
+            transition: background-color 0.3s ease;
+
+            @media #{$mouse-device} {
+                &:hover {
+                    background-color: rgba(#fff, 0.1);
+                }
+            }
+
+            &.btn-right {
+                right: -7em;
+
+                &:not(.stories-start) {
+                    display: block;
+                }
+            }
+            &.btn-left {
+                left: -7em;
+
+                &:not(.stories-end) {
+                    display: block;
+                }
+            }
+        }
+
+        & img, & video {
+            pointer-events: none;
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none;  /* Chrome/Safari/Opera */
+            -khtml-user-select: none;   /* Konqueror */
+            -moz-user-select: none;     /* Firefox */
+            -ms-user-select: none;      /* Internet Explorer/Edge */
+            user-select: none;  
+        }
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 919.98px) {
+    .stories-carousel {
+        font-size: 10px;
+        height: 100dvh;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+
+        & .swiper {
+            height: 100%;
+            overflow: visible;
+
+            & .swiper-slide {
+                height: 100%;
+            }
+        }
+
+        & .slider-btn {
+            display: none !important;
+        }
+    }
+}

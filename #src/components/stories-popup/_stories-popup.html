@@ -1,0 +1,20 @@
+<div class="stories-popup" data-stories>
+    <button type="button" class="stories-popup__close" data-action="close-stories">
+        <img src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none'%3E%3Cpath stroke='%23737373' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M1 13 13 1M1 1l12 12'/%3E%3C/svg%3E"
+            alt="">
+    </button>
+    <div class="stories-popup__inner">
+
+        <div class="stories-popup__content">
+            @@include('../stories-carousel/_stories-carousel.html')
+        </div>
+    </div>
+</div>
+
+<script>
+    const stories = document.querySelector('[data-stories]');
+    if (stories) {
+        const storiesCarousel = new StoriesCarousel(stories);
+        //storiesCarousel.show();
+    }
+</script>
