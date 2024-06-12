@@ -25,7 +25,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: opacity .3s ease, visibility .3s ease;
+        transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
@@ -99,7 +101,7 @@
         left: 0;
         width: 100%;
         padding-top: 2.5em;
-        background-image: linear-gradient(180deg,#000,transparent);
+        background-image: linear-gradient(180deg, #000, transparent);
         padding-bottom: 4em;
     }
 
@@ -154,11 +156,11 @@
         cursor: pointer;
         border: none;
         padding: 0.2em 0;
-        transition: background-color .3s ease;
+        transition: background-color 0.3s ease;
 
         @media #{$mouse-device} {
             &:hover {
-                background-color: rgba(#fff,0.1);
+                background-color: rgba(#fff, 0.1);
             }
         }
 
@@ -242,11 +244,11 @@
             height: 100%;
             width: 100%;
         }
-    
+
         & div[id^="vjs_"] {
             height: 100%;
             width: 100%;
-    
+
             & div[class^="vjs-"] {
                 display: none;
             }
@@ -265,8 +267,7 @@
         gap: 1.6em;
         flex-wrap: wrap;
         padding: 4em 1.5em 2em;
-        background-image: linear-gradient(0deg,#000,transparent);
-
+        background-image: linear-gradient(0deg, #000, transparent);
     }
 
     &__info-item {
@@ -287,7 +288,6 @@
     }
 
     &__description {
-
     }
 
     &__apply {
@@ -303,7 +303,7 @@
         line-height: 1em;
         min-height: 2.5em;
         width: 100%;
-        transition: background-color .3s ease;
+        transition: background-color 0.3s ease;
         cursor: pointer;
 
         @media #{$mouse-device} {
@@ -314,15 +314,14 @@
     }
 }
 
-
 .progress-line {
     height: 4px;
-    background-color: hsla(0,0%,100%,.35);
+    background-color: hsla(0, 0%, 100%, 0.35);
     border-radius: 99px;
     flex: 1 1 auto;
 
     &:before {
-        content: '';
+        content: "";
         display: block;
         height: 100%;
         width: var(--value);
@@ -345,15 +344,6 @@
     }
 }
 
-.drop-down {
-    &__icon {
-    }
-
-    &__content {
-        display: none;
-    }
-}
-
 .stories-card-shimmer {
     height: 100%;
     border-radius: 1.6em;
@@ -364,5 +354,118 @@
 
     @media (max-width: 919.98px) {
         border-radius: 0;
+    }
+}
+
+.drop-down {
+    position: relative;
+
+    &.drop-down--open {
+        & .drop-down__content {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+    }
+
+    &__icon {
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.6em;
+        height: 2.6em;
+        border-radius: 999px;
+        flex: 0 0 auto;
+        cursor: pointer;
+        border: none;
+        padding: 0.2em 0;
+        transition: background-color 0.3s ease;
+
+        @media #{$mouse-device} {
+            &:hover {
+                background-color: rgba(#fff, 0.1);
+            }
+        }
+    }
+
+    &__content {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        border: 1px solid #d2d7dc;
+        border-radius: 5px;
+        box-shadow: 0 0 20px 0 rgba(217, 221, 231, 0.6);
+        padding: 4px;
+        list-style: none;
+        padding-right: 0;
+        transition: opacity .15s ease, visibility .15 ease;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+
+        & li {
+            padding: 4px 0;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid #d2d7dc;
+            }
+        }
+    }
+
+    &__item {
+        min-width: 230px;
+        min-height: 34px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: #0c1310;
+        padding-right: 42px;
+        font-size: 15px;
+        transition: background-color .15s ease;
+        text-decoration: none;
+
+        @media #{$mouse-device} {
+            &:hover {
+                background-color: #f7f7f7;
+            }
+        }
+
+        & .icon {
+            flex: 0 0 auto;
+            height: 24px;
+            width: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            & img, & svg {
+                width: auto;
+                height: auto;
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+
+        &[data-copy-link] {
+            & .icon-copied {
+                display: none;
+            }
+
+            &.copied {
+                & .icon.icon-copied {
+                    display: flex;
+                }
+
+                & .icon {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    &__item--red {
+        color: red;
     }
 }

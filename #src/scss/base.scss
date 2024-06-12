@@ -1,8 +1,3 @@
-// html {
-// 	touch-action: pan-x pan-y;
-// 	height: 100%; /* prevent pinch-zoom at page bottom */
-// }
-
 *,
 *:before,
 *:after {
@@ -13,8 +8,6 @@
 
 body {
 	font-family: $mainFontFamily;
-	// overscroll-behavior-y: none;
-	// -webkit-overflow-scrolling: touch;
 	min-height: 100%;
 }
 

@@ -549,6 +549,8 @@ class StoryCard {
 
         const playPauseBtn = this.htmlContainer.querySelector('.stories-card__play-pause-btn');
         const storiesContainer = this.htmlContainer.querySelector('.stories-card__stories');
+        const dropDown = this.htmlContainer.querySelector('.drop-down');
+        const copyLink = this.htmlContainer.querySelector('[data-copy-link]');
 
         playPauseBtn.addEventListener('click', () => {
             if (playPauseBtn.classList.contains('pause')) {
@@ -626,7 +628,6 @@ class StoryCard {
             }
         });
 
-
         touchArea.addEventListener('pointercancel', () => {
             clearTimeout(longPressTimeout);
         });
@@ -634,5 +635,33 @@ class StoryCard {
         touchArea.addEventListener('pointerleave', () => {
             clearTimeout(longPressTimeout);
         });
+
+
+        dropDown.addEventListener('click', () => {
+            dropDown.classList.add('drop-down--open');
+            storiesContainer.style.setProperty('pointer-events', 'none');
+            this.pause();
+        })
+
+        document.addEventListener('click', (e) => {
+            if(!e.target.closest('.drop-down')) {
+                if(dropDown.classList.contains('drop-down--open')) {
+                    dropDown.classList.remove('drop-down--open');
+                    this.play();
+                    storiesContainer.style.removeProperty('pointer-events');
+                }
+            }
+        })
+
+        copyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!copyLink.href) return;
+            navigator.clipboard.writeText(copyLink.href);
+            copyLink?.classList.add('copied');
+
+            setTimeout(() => {
+                copyLink?.classList.remove('copied');
+            }, 1000)
+        })
     }
 }
