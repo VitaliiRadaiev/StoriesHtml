@@ -105,6 +105,13 @@
                     &:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
                         opacity: 0;
                     }
+
+                    &:not(.swiper-slide-active) {
+                        & .stories-card__description {
+                            opacity: 0;
+                            pointer-events: none;
+                        }
+                    }
                 }
             }
 

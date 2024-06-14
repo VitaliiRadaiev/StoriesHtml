@@ -1192,6 +1192,11 @@ body {
     opacity: 0;
   }
 
+  .stories-carousel > .swiper > .swiper-wrapper > .swiper-slide:not(.swiper-slide-active) .stories-card__description {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .stories-carousel .slider-btn {
     display: none !important;
   }
