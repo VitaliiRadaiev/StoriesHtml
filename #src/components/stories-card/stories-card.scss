@@ -240,12 +240,12 @@
             object-fit: cover;
         }
 
+
         & video {
             height: 100%;
             width: 100%;
-            will-change: transform;
-            transform: translateZ(0);
-            backface-visibility: hidden;
+            will-change: auto;
+            transform: none;
         }
 
         & div[id^="vjs_"] {

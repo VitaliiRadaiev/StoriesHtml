@@ -488,11 +488,10 @@ body {
 .stories-card__stories-item video {
   height: 100%;
   width: 100%;
-  will-change: transform;
-  -webkit-transform: translateZ(0);
-          transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  will-change: auto;
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
 }
 
 .stories-card__stories-item div[id^=vjs_] {
