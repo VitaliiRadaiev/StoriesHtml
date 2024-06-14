@@ -575,64 +575,64 @@ class StoryCard {
         let longPressTimeout;
         const LONG_PRESS_DURATION = 150;
 
-        // touchArea.addEventListener('pointerdown', (e) => {
-        //     touchStartX = e.clientX;
-        //     touchStartY = e.clientY;
-        //     touchStartTime = performance.now();
+        touchArea.addEventListener('pointerdown', (e) => {
+            touchStartX = e.clientX;
+            touchStartY = e.clientY;
+            touchStartTime = performance.now();
 
-        //     this.stories.pause();
+            this.stories.pause();
 
-        //     longPressTimeout = setTimeout(() => {
+            longPressTimeout = setTimeout(() => {
 
-        //         //console.log('long click');
-        //     }, LONG_PRESS_DURATION);
+                //console.log('long click');
+            }, LONG_PRESS_DURATION);
 
-        //     this.stories.pause();
-        // });
+            this.stories.pause();
+        });
 
-        // touchArea.addEventListener('pointerup', (e) => {
-        //     clearTimeout(longPressTimeout);
-        //     touchEndX = e.clientX;
-        //     touchEndY = e.clientY;
-        //     const timeDiff = performance.now() - touchStartTime;
+        touchArea.addEventListener('pointerup', (e) => {
+            clearTimeout(longPressTimeout);
+            touchEndX = e.clientX;
+            touchEndY = e.clientY;
+            const timeDiff = performance.now() - touchStartTime;
 
-        //     this.stories.play();
+            this.stories.play();
 
-        //     if (timeDiff < LONG_PRESS_DURATION) {
-        //         if (Math.abs(touchEndX - touchStartX) < 5 && Math.abs(touchEndY - touchStartY) < 5) {
-        //             //console.log('fast click');
+            if (timeDiff < LONG_PRESS_DURATION) {
+                if (Math.abs(touchEndX - touchStartX) < 5 && Math.abs(touchEndY - touchStartY) < 5) {
+                    //console.log('fast click');
 
-        //             if (isMobile() && document.documentElement.clientWidth < 920) {
-        //                 const leftSide = storiesContainer.clientWidth * 0.75;
+                    if (isMobile() && document.documentElement.clientWidth < 920) {
+                        const leftSide = storiesContainer.clientWidth * 0.75;
 
-        //                 if (e.clientX > leftSide) {
-        //                     if (this.stories.isStart) {
-        //                         this.onBeforeStartFns.forEach(fn => fn());
-        //                         return;
-        //                     }
-        //                     this.stories.prev();
-        //                 } else {
-        //                     if (this.stories.isEnd) {
-        //                         this.onEndFns.forEach(fn => fn());
-        //                         return;
-        //                     }
-        //                     this.stories.next();
-        //                 }
-        //             }
-        //         }
-        //     }
-        // });
+                        if (e.clientX > leftSide) {
+                            if (this.stories.isStart) {
+                                this.onBeforeStartFns.forEach(fn => fn());
+                                return;
+                            }
+                            this.stories.prev();
+                        } else {
+                            if (this.stories.isEnd) {
+                                this.onEndFns.forEach(fn => fn());
+                                return;
+                            }
+                            this.stories.next();
+                        }
+                    }
+                }
+            }
+        });
 
-        // touchArea.addEventListener('pointermove', (e) => {
-        //     if (performance.now() - touchStartTime < LONG_PRESS_DURATION) {
-        //         touchEndX = e.clientX;
-        //         touchEndY = e.clientY;
-        //         if (Math.abs(touchEndX - touchStartX) > 10 || Math.abs(touchEndY - touchStartY) > 10) {
-        //             clearTimeout(longPressTimeout);
-        //             //console.log('swipe');
-        //         }
-        //     }
-        // });
+        touchArea.addEventListener('pointermove', (e) => {
+            if (performance.now() - touchStartTime < LONG_PRESS_DURATION) {
+                touchEndX = e.clientX;
+                touchEndY = e.clientY;
+                if (Math.abs(touchEndX - touchStartX) > 10 || Math.abs(touchEndY - touchStartY) > 10) {
+                    clearTimeout(longPressTimeout);
+                    //console.log('swipe');
+                }
+            }
+        });
 
         touchArea.addEventListener('pointercancel', () => {
             clearTimeout(longPressTimeout);
@@ -696,30 +696,30 @@ class StoryCard {
 
         let touchPanelStartY = 0;
         let touchPanelEndY = 0;
+        let touchPanelStartTime = 0;
 
-        swipePanelBtn.addEventListener('pointerdown', (e) => {
-            console.log('down');
+        swipePanelBtn.addEventListener('touchstart', (e) => {
             isSwipePanelBtnActive = true;
-            touchPanelStartY = e.pageY;
+            touchPanelStartY = e.touches[0].pageY;
+            touchPanelStartTime = performance.now();
 
             const moveSlide = (e) => {
-                console.log('move');
-                if(e.pageY < touchPanelStartY) return;
-                touchPanelEndY = e.pageY;
+                touchPanelEndY = e.touches[0].pageY;
+                if(touchPanelEndY < touchPanelStartY) return;
     
                 const progress = touchPanelEndY - touchPanelStartY;
                 slidePanel.style.setProperty('transition', 'none');
                 slidePanel.style.setProperty('transform', `translate3d(0, ${progress}px, 0)`);
             }
 
-            const handlerUp = (e) => {
-                console.log('up');
-                const isSwipeUp = e.pageY < touchPanelStartY;
+            const handlerUp = () => {
+                const isSwipeUp = touchPanelEndY< touchPanelStartY;
                 const value = touchPanelEndY - touchPanelStartY;
-                
+                const timeDiff = performance.now() - touchPanelStartTime;
+
                 slidePanel.style.removeProperty('transition');
                 if(!isSwipeUp) {
-                    if ( value > 40) {
+                    if ( value > 100 || timeDiff < 150) {
                         slidePanel.style.removeProperty('transform');
                         toggleSlidePanelVisibleBtn.classList.remove('active');
     
@@ -741,19 +741,14 @@ class StoryCard {
                     isSwipePanelBtnActive = false;
                 }, 100)
 
-                this.htmlContainer.removeEventListener('pointermove', moveSlide);
-                this.htmlContainer.removeEventListener('pointerup', handlerUp);
+                this.htmlContainer.removeEventListener('touchmove', moveSlide);
+                this.htmlContainer.removeEventListener('touchend', handlerUp);
             }
 
-            this.htmlContainer.addEventListener('pointermove', moveSlide);
+            this.htmlContainer.addEventListener('touchmove', moveSlide);
 
-            this.htmlContainer.addEventListener('pointerup', handlerUp);
+            this.htmlContainer.addEventListener('touchend', handlerUp);
         })
-
-        // this.htmlContainer.addEventListener('pointermove', (e) => {
-        //     console.log('test');
-        // });
-
 
         document.addEventListener('click', (e) => {
             if(isSwipePanelBtnActive) return;
