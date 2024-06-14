@@ -9080,8 +9080,8 @@ var Swiper = (function () {
           if (progress <= 1 && progress > -1) {
             wrapperRotate = slideIndex * 90 + progress * 90;
             if (rtl) wrapperRotate = -slideIndex * 90 - progress * 90;
-            console.log('3dfix', swiper.browser && swiper.browser.need3dFix && Math.abs(wrapperRotate) / 90 % 2 === 1);
-            if (swiper.browser && swiper.browser.need3dFix && Math.abs(wrapperRotate) / 90 % 2 === 1) {
+            console.log('3dfix', swiper.browser && swiper.browser.need3dFix);
+            if (swiper.browser && swiper.browser.need3dFix) {
               wrapperRotate += 0.001;
             }
           }
