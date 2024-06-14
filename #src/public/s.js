@@ -9076,10 +9076,11 @@ var Swiper = (function () {
             ty = tx;
             tx = 0;
           }
-          const transform = `rotateX(${isHorizontal ? 0 : -slideAngle}deg) rotateY(${isHorizontal ? slideAngle + 0.1 : 0}deg) translate3d(${tx}px, ${ty}px, ${tz}px)`;
+          const transform = `rotateX(${isHorizontal ? 0 : -slideAngle}deg) rotateY(${isHorizontal ? slideAngle : 0}deg) translate3d(${tx}px, ${ty}px, ${tz}px)`;
           if (progress <= 1 && progress > -1) {
             wrapperRotate = slideIndex * 90 + progress * 90;
             if (rtl) wrapperRotate = -slideIndex * 90 - progress * 90;
+            console.log('3dfix', swiper.browser && swiper.browser.need3dFix && Math.abs(wrapperRotate) / 90 % 2 === 1);
             if (swiper.browser && swiper.browser.need3dFix && Math.abs(wrapperRotate) / 90 % 2 === 1) {
               wrapperRotate += 0.001;
             }
