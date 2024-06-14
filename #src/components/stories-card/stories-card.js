@@ -206,7 +206,7 @@ class Stories {
     }
 
     init() {
-        
+
         this._createProgressLines();
         this._setEvents();
 
@@ -345,7 +345,7 @@ class Stories {
             const storyType = storyItem.getAttribute('data-story-type');
             let story;
             if (storyType === 'image') {
-                story= new ImageStory({
+                story = new ImageStory({
                     htmlContainer: storyItem,
                     url: storyItem.getAttribute('data-url'),
                     duration: storyItem.getAttribute('data-story-duration') || 6
@@ -353,7 +353,7 @@ class Stories {
             }
 
             if (storyType === 'video') {
-                story= new VideoStory({
+                story = new VideoStory({
                     htmlContainer: storyItem,
                     url: storyItem.getAttribute('data-url'),
                     videoType: storyItem.getAttribute('data-video-type'),
@@ -473,6 +473,7 @@ class StoryCard {
 
     init() {
         this._initStories();
+        this._initBottomSlidePanel();
         this._initEvents();
 
         this.htmlContainer.classList.add('stories-card-initialized');
@@ -545,12 +546,17 @@ class StoryCard {
 
     _initEvents() {
         if (!this.stories) return;
-        if (!this.htmlContainer ) return;
+        if (!this.htmlContainer) return;
 
         const playPauseBtn = this.htmlContainer.querySelector('.stories-card__play-pause-btn');
         const storiesContainer = this.htmlContainer.querySelector('.stories-card__stories');
         const dropDown = this.htmlContainer.querySelector('.drop-down');
         const copyLink = this.htmlContainer.querySelector('[data-copy-link]');
+        const slidePanel = this.htmlContainer.querySelector('.stories-card__description');
+        const toggleSlidePanelVisibleBtn = this.htmlContainer.querySelector('.stories-card__description-btn');
+        const swipePanelBtn = this.htmlContainer.querySelector('.description__top-anchor');
+        const swipePanelScrollContainer = this.htmlContainer.querySelector('.description__scroll-container');
+        let isSwipePanelBtnActive = false;
 
         playPauseBtn.addEventListener('click', () => {
             if (playPauseBtn.classList.contains('pause')) {
@@ -569,64 +575,64 @@ class StoryCard {
         let longPressTimeout;
         const LONG_PRESS_DURATION = 150;
 
-        touchArea.addEventListener('pointerdown', (e) => {
-            touchStartX = e.clientX;
-            touchStartY = e.clientY;
-            touchStartTime = performance.now();
+        // touchArea.addEventListener('pointerdown', (e) => {
+        //     touchStartX = e.clientX;
+        //     touchStartY = e.clientY;
+        //     touchStartTime = performance.now();
 
-            this.stories.pause();
+        //     this.stories.pause();
 
-            longPressTimeout = setTimeout(() => {
+        //     longPressTimeout = setTimeout(() => {
 
-                //console.log('long click');
-            }, LONG_PRESS_DURATION);
+        //         //console.log('long click');
+        //     }, LONG_PRESS_DURATION);
 
-            this.stories.pause();
-        });
+        //     this.stories.pause();
+        // });
 
-        touchArea.addEventListener('pointerup', (e) => {
-            clearTimeout(longPressTimeout);
-            touchEndX = e.clientX;
-            touchEndY = e.clientY;
-            const timeDiff = performance.now() - touchStartTime;
+        // touchArea.addEventListener('pointerup', (e) => {
+        //     clearTimeout(longPressTimeout);
+        //     touchEndX = e.clientX;
+        //     touchEndY = e.clientY;
+        //     const timeDiff = performance.now() - touchStartTime;
 
-            this.stories.play();
+        //     this.stories.play();
 
-            if (timeDiff < LONG_PRESS_DURATION) {
-                if (Math.abs(touchEndX - touchStartX) < 5 && Math.abs(touchEndY - touchStartY) < 5) {
-                    //console.log('fast click');
+        //     if (timeDiff < LONG_PRESS_DURATION) {
+        //         if (Math.abs(touchEndX - touchStartX) < 5 && Math.abs(touchEndY - touchStartY) < 5) {
+        //             //console.log('fast click');
 
-                    if (isMobile() && document.documentElement.clientWidth < 920) {
-                        const leftSide = storiesContainer.clientWidth * 0.75;
+        //             if (isMobile() && document.documentElement.clientWidth < 920) {
+        //                 const leftSide = storiesContainer.clientWidth * 0.75;
 
-                        if (e.clientX > leftSide) {
-                            if (this.stories.isStart) {
-                                this.onBeforeStartFns.forEach(fn => fn());
-                                return;
-                            }
-                            this.stories.prev();
-                        } else {
-                            if (this.stories.isEnd) {
-                                this.onEndFns.forEach(fn => fn());
-                                return;
-                            }
-                            this.stories.next();
-                        }
-                    }
-                }
-            }
-        });
+        //                 if (e.clientX > leftSide) {
+        //                     if (this.stories.isStart) {
+        //                         this.onBeforeStartFns.forEach(fn => fn());
+        //                         return;
+        //                     }
+        //                     this.stories.prev();
+        //                 } else {
+        //                     if (this.stories.isEnd) {
+        //                         this.onEndFns.forEach(fn => fn());
+        //                         return;
+        //                     }
+        //                     this.stories.next();
+        //                 }
+        //             }
+        //         }
+        //     }
+        // });
 
-        touchArea.addEventListener('pointermove', (e) => {
-            if (performance.now() - touchStartTime < LONG_PRESS_DURATION) {
-                touchEndX = e.clientX;
-                touchEndY = e.clientY;
-                if (Math.abs(touchEndX - touchStartX) > 10 || Math.abs(touchEndY - touchStartY) > 10) {
-                    clearTimeout(longPressTimeout);
-                    //console.log('swipe');
-                }
-            }
-        });
+        // touchArea.addEventListener('pointermove', (e) => {
+        //     if (performance.now() - touchStartTime < LONG_PRESS_DURATION) {
+        //         touchEndX = e.clientX;
+        //         touchEndY = e.clientY;
+        //         if (Math.abs(touchEndX - touchStartX) > 10 || Math.abs(touchEndY - touchStartY) > 10) {
+        //             clearTimeout(longPressTimeout);
+        //             //console.log('swipe');
+        //         }
+        //     }
+        // });
 
         touchArea.addEventListener('pointercancel', () => {
             clearTimeout(longPressTimeout);
@@ -643,15 +649,6 @@ class StoryCard {
             this.pause();
         })
 
-        document.addEventListener('click', (e) => {
-            if(!e.target.closest('.drop-down')) {
-                if(dropDown.classList.contains('drop-down--open')) {
-                    dropDown.classList.remove('drop-down--open');
-                    this.play();
-                    storiesContainer.style.removeProperty('pointer-events');
-                }
-            }
-        })
 
         copyLink.addEventListener('click', (e) => {
             e.preventDefault();
@@ -663,5 +660,164 @@ class StoryCard {
                 copyLink?.classList.remove('copied');
             }, 1000)
         })
+
+        toggleSlidePanelVisibleBtn.addEventListener('click', () => {
+            if(toggleSlidePanelVisibleBtn.classList.contains('active')) {
+                this._animateNumberValue({
+                    start: 0,
+                    end: 100,
+                    duration: 150,
+                    callback: (progress) => {
+                        slidePanel.style.setProperty('transform', `translate3d(0, ${progress}%, 0)`)
+                    }
+                })
+
+                toggleSlidePanelVisibleBtn.classList.remove('active');
+
+                storiesContainer.style.removeProperty('pointer-events');
+                this.play();
+            } else {
+                this._animateNumberValue({
+                    start: 100,
+                    end: 0,
+                    duration: 150,
+                    callback: (progress) => {
+                        slidePanel.style.setProperty('transform', `translate3d(0, ${progress}%, 0)`)
+                    }
+                })
+
+                toggleSlidePanelVisibleBtn.classList.add('active');
+
+                storiesContainer.style.setProperty('pointer-events', 'none');
+                this.pause();
+            }
+        })
+
+
+        let touchPanelStartY = 0;
+        let touchPanelEndY = 0;
+
+        swipePanelBtn.addEventListener('pointerdown', (e) => {
+            console.log('down');
+            isSwipePanelBtnActive = true;
+            touchPanelStartY = e.pageY;
+
+            const moveSlide = (e) => {
+                console.log('move');
+                if(e.pageY < touchPanelStartY) return;
+                touchPanelEndY = e.pageY;
+    
+                const progress = touchPanelEndY - touchPanelStartY;
+                slidePanel.style.setProperty('transition', 'none');
+                slidePanel.style.setProperty('transform', `translate3d(0, ${progress}px, 0)`);
+            }
+
+            const handlerUp = (e) => {
+                console.log('up');
+                const isSwipeUp = e.pageY < touchPanelStartY;
+                const value = touchPanelEndY - touchPanelStartY;
+                
+                slidePanel.style.removeProperty('transition');
+                if(!isSwipeUp) {
+                    if ( value > 40) {
+                        slidePanel.style.removeProperty('transform');
+                        toggleSlidePanelVisibleBtn.classList.remove('active');
+    
+                        storiesContainer.style.removeProperty('pointer-events');
+                        this.play();
+                    } else {
+                        this._animateNumberValue({
+                            start: value,
+                            end: 0,
+                            duration: 70,
+                            callback: (progress) => {
+                                slidePanel.style.setProperty('transform', `translate3d(0, ${progress}px, 0)`)
+                            }
+                        })
+                    }
+                }
+
+                setTimeout(() => {
+                    isSwipePanelBtnActive = false;
+                }, 100)
+
+                this.htmlContainer.removeEventListener('pointermove', moveSlide);
+                this.htmlContainer.removeEventListener('pointerup', handlerUp);
+            }
+
+            this.htmlContainer.addEventListener('pointermove', moveSlide);
+
+            this.htmlContainer.addEventListener('pointerup', handlerUp);
+        })
+
+        // this.htmlContainer.addEventListener('pointermove', (e) => {
+        //     console.log('test');
+        // });
+
+
+        document.addEventListener('click', (e) => {
+            if(isSwipePanelBtnActive) return;
+
+            if (!e.target.closest('.drop-down')) {
+                if (dropDown.classList.contains('drop-down--open')) {
+                    dropDown.classList.remove('drop-down--open');
+                    this.play();
+                    storiesContainer.style.removeProperty('pointer-events');
+                }
+            } else {
+                return;
+            }
+
+            if(!(e.target.closest('.stories-card__description') || e.target.closest('.stories-card__description-btn') )) {
+                if (toggleSlidePanelVisibleBtn.classList.contains('active')) {
+                    this._animateNumberValue({
+                        start: 0,
+                        end: 100,
+                        duration: 150,
+                        callback: (progress) => {
+                            slidePanel.style.setProperty('transform', `translate3d(0, ${progress}%, 0)`)
+                        }
+                    })
+                    toggleSlidePanelVisibleBtn.classList.remove('active');
+                    this.play();
+                    storiesContainer.style.removeProperty('pointer-events');
+                }
+            }
+        })
+    }
+
+    _initBottomSlidePanel() {
+        if (!this.htmlContainer) return;
+
+        const slidePanel = this.htmlContainer.querySelector('.stories-card__description');
+
+        new Swiper(slidePanel.querySelector('.swiper'), {
+            direction: "vertical",
+            slidesPerView: "auto",
+            freeMode: true,
+            scrollbar: {
+                el: slidePanel.querySelector('.swiper-scrollbar'),
+            },
+            mousewheel: true,
+            nested: true
+        });
+    }
+
+    _animateNumberValue({ start, end, duration, callback }) {
+        const startTime = performance.now();
+    
+        function updateNumberValue(currentTime) {
+            const elapsedTime = currentTime - startTime;
+            const progress = Math.min(elapsedTime / duration, 1);
+            const currentNumber = Math.floor(start + (end - start) * progress);
+            
+            callback(currentNumber);
+    
+            if (progress < 1) {
+                requestAnimationFrame(updateNumberValue);
+            }
+        }
+        
+        requestAnimationFrame(updateNumberValue);
     }
 }

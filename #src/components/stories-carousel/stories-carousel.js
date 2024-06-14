@@ -59,8 +59,8 @@ class StoriesCarousel {
                     speed: 400,
                     threshold: 10,
                     cubeEffect: {
-                        shadow: true,
-                        slideShadows: true,
+                        shadow: false,
+                        slideShadows: false,
                         shadowOffset: 20,
                         shadowScale: 0.94,
                     },
