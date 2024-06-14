@@ -1126,7 +1126,7 @@ body {
   }
 
   .stories-nav .swiper-wrapper {
-    gap: 0;
+    gap: 0 !important;
   }
 
   .stories-nav .swiper-wrapper .swiper-slide {
