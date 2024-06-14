@@ -499,6 +499,10 @@ body {
   display: none;
 }
 
+.stories-card__stories-item .vjs-big-play-button {
+  display: none;
+}
+
 .stories-card__info {
   position: absolute;
   z-index: 2;

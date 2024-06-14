@@ -253,6 +253,10 @@
                 display: none;
             }
         }
+
+        & .vjs-big-play-button {
+            display: none;
+        }
     }
 
     &__info {
