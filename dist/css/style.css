@@ -572,6 +572,7 @@ body {
   border-radius: 1.6em 1.6em 0 0;
   -webkit-transform: translate3d(0, 100%, 0);
           transform: translate3d(0, 100%, 0);
+  display: none;
   -webkit-transition: -webkit-transform 0.15s ease-in;
   transition: -webkit-transform 0.15s ease-in;
   -o-transition: transform 0.15s ease-in;
@@ -1190,11 +1191,6 @@ body {
 
   .stories-carousel > .swiper > .swiper-wrapper > .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
     opacity: 0;
-  }
-
-  .stories-carousel > .swiper > .swiper-wrapper > .swiper-slide:not(.swiper-slide-active) .stories-card__description {
-    opacity: 0;
-    pointer-events: none;
   }
 
   .stories-carousel .slider-btn {

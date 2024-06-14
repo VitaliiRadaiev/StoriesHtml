@@ -441,7 +441,11 @@ class Stories {
 class StoryCard {
     constructor(htmlContainer) {
         this.htmlContainer = htmlContainer;
-        this.previewHtmlContainer = htmlContainer.querySelector('.stories-card__preview')
+        this.previewHtmlContainer = htmlContainer.querySelector('.stories-card__preview');
+        this.dropDown = this.htmlContainer.querySelector('.drop-down');
+        this.storiesContainer = this.htmlContainer.querySelector('.stories-card__stories');
+        this.slidePanel = this.htmlContainer.querySelector('.stories-card__description');
+        this.toggleSlidePanelVisibleBtn = this.htmlContainer.querySelector('.stories-card__description-btn');
         this.stories = null;
         this.canPlayFns = [];
         this.onEndFns = [];
@@ -489,13 +493,11 @@ class StoryCard {
 
         const dropDown = this.htmlContainer.querySelector('.drop-down');
         const storiesContainer = this.htmlContainer.querySelector('.stories-card__stories');
-        const slidePanel = this.htmlContainer.querySelector('.stories-card__description');
-        const toggleSlidePanelVisibleBtn = this.htmlContainer.querySelector('.stories-card__description-btn');
 
         dropDown.classList.remove('drop-down--open');
         storiesContainer.style.removeProperty('pointer-events');
-        slidePanel.style.removeProperty('transform');
-        toggleSlidePanelVisibleBtn.classList.remove('active');
+
+        this.closeSlidePanel();
     }
 
     next() {
@@ -514,6 +516,41 @@ class StoryCard {
 
     showPreview() {
         this.previewHtmlContainer.classList.remove('hide');
+    }
+
+    openSlidePanel() {
+        this.slidePanel.style.setProperty('display', 'block');
+        this._animateNumberValue({
+            start: 100,
+            end: 0,
+            duration: 150,
+            callback: (progress) => {
+                this.slidePanel.style.setProperty('transform', `translate3d(0, ${progress}%, 0)`)
+            }
+        })
+
+        this.toggleSlidePanelVisibleBtn.classList.add('active');
+
+        this.storiesContainer.style.setProperty('pointer-events', 'none');
+    }
+
+    closeSlidePanel() {
+        this._animateNumberValue({
+            start: 0,
+            end: 100,
+            duration: 150,
+            callback: (progress) => {
+                this.slidePanel.style.setProperty('transform', `translate3d(0, ${progress}%, 0)`)
+            }
+        })
+
+        setTimeout(() => {
+            this.slidePanel.style.removeProperty('display');
+        }, 300)
+
+        this.toggleSlidePanelVisibleBtn.classList.remove('active');
+
+        this.storiesContainer.style.removeProperty('pointer-events');
     }
 
     _initStories() {
@@ -655,32 +692,12 @@ class StoryCard {
 
         toggleSlidePanelVisibleBtn.addEventListener('click', () => {
             if(toggleSlidePanelVisibleBtn.classList.contains('active')) {
-                this._animateNumberValue({
-                    start: 0,
-                    end: 100,
-                    duration: 150,
-                    callback: (progress) => {
-                        slidePanel.style.setProperty('transform', `translate3d(0, ${progress}%, 0)`)
-                    }
-                })
+                this.closeSlidePanel();
 
-                toggleSlidePanelVisibleBtn.classList.remove('active');
-
-                storiesContainer.style.removeProperty('pointer-events');
                 this.play();
             } else {
-                this._animateNumberValue({
-                    start: 100,
-                    end: 0,
-                    duration: 150,
-                    callback: (progress) => {
-                        slidePanel.style.setProperty('transform', `translate3d(0, ${progress}%, 0)`)
-                    }
-                })
+                this.openSlidePanel();
 
-                toggleSlidePanelVisibleBtn.classList.add('active');
-
-                storiesContainer.style.setProperty('pointer-events', 'none');
                 this.pause();
             }
         })
@@ -714,8 +731,10 @@ class StoryCard {
                     if ( value > 100 || timeDiff < 150) {
                         slidePanel.style.removeProperty('transform');
                         toggleSlidePanelVisibleBtn.classList.remove('active');
-    
                         storiesContainer.style.removeProperty('pointer-events');
+                        setTimeout(() => {
+                            slidePanel.style.removeProperty('display');
+                        }, 150)
                         this.play();
                     } else {
                         this._animateNumberValue({
@@ -757,17 +776,8 @@ class StoryCard {
 
             if(!(e.target.closest('.stories-card__description') || e.target.closest('.stories-card__description-btn') )) {
                 if (toggleSlidePanelVisibleBtn.classList.contains('active')) {
-                    this._animateNumberValue({
-                        start: 0,
-                        end: 100,
-                        duration: 150,
-                        callback: (progress) => {
-                            slidePanel.style.setProperty('transform', `translate3d(0, ${progress}%, 0)`)
-                        }
-                    })
-                    toggleSlidePanelVisibleBtn.classList.remove('active');
+                    this.closeSlidePanel();
                     this.play();
-                    storiesContainer.style.removeProperty('pointer-events');
                 }
             }
         })
@@ -779,6 +789,8 @@ class StoryCard {
         const slidePanel = this.htmlContainer.querySelector('.stories-card__description');
 
         new Swiper(slidePanel.querySelector('.swiper'), {
+            observer: true,
+            observeParents: true,
             direction: "vertical",
             slidesPerView: "auto",
             freeMode: true,

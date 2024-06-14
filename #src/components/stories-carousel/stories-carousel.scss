@@ -106,12 +106,12 @@
                         opacity: 0;
                     }
 
-                    &:not(.swiper-slide-active) {
-                        & .stories-card__description {
-                            opacity: 0;
-                            pointer-events: none;
-                        }
-                    }
+                    // &:not(.swiper-slide-active) {
+                    //     & .stories-card__description {
+                    //         opacity: 0;
+                    //         pointer-events: none;
+                    //     }
+                    // }
                 }
             }
 
