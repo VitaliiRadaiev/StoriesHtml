@@ -243,6 +243,9 @@
         & video {
             height: 100%;
             width: 100%;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         & div[id^="vjs_"] {
