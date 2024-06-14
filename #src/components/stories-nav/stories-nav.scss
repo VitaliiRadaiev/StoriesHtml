@@ -87,30 +87,24 @@
 
 @media (max-width: 919.98px) {
     .stories-nav {
+        overflow: hidden;
         margin-left: -15px;
         margin-right: -15px;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        overflow-y: hidden;
-        height: 71px;
+        padding-left: 15px;
+        padding-right: 15px;
 
         & .swiper {
-            overflow: auto hidden;
+            overflow: visible;
             width: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-left: 15px;
-            padding-right: 15px;
-            margin-left: 0;
-            margin-right: 0;
-            display: flex;
-            flex-direction: row;
-            flex-shrink: 0;
-            height: 90px;
         }
         & .swiper-wrapper {
-            gap: 20px;
-            width: auto;
+            gap: 0;
+            & .swiper-slide {
+                width: auto;
+                &:not(:last-child) {
+                    padding-left: 20px;
+                }
+            }
         }
 
         & .slider-btn {
