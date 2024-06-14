@@ -227,27 +227,6 @@ class Stories {
             st.stop();
         })
 
-        // this._removeProgressAnimation();
-        // const linePrev = this.progressLineContainer.children[this.activeStoryIndex - 1];
-        // if(linePrev) {
-        //     linePrev.classList.add('viewed');
-        //     linePrev.classList.remove('active');
-        // }
-        // //linePrev && this._setProgress(linePrev, 1);
-
-        // const line = this.progressLineContainer.children[this.activeStoryIndex];
-        // if(line) {
-        //     line.classList.remove('viewed');
-        //     line.classList.add('active');
-        // }
-
-        // const lineNext = this.progressLineContainer.children[this.activeStoryIndex + 1];
-        // if(lineNext) {
-        //     lineNext.classList.remove('viewed');
-        //     lineNext.classList.remove('active');
-        // }
-        //lineNext && this._setProgress(lineNext, 0);
-
         const play = () => {
             if (story.canPlay) {
                 story.play();
@@ -504,6 +483,21 @@ class StoryCard {
         this.stories.pause();
     }
 
+    stop() {
+        if (!this.stories) return;
+        this.stories.stop();
+
+        const dropDown = this.htmlContainer.querySelector('.drop-down');
+        const storiesContainer = this.htmlContainer.querySelector('.stories-card__stories');
+        const slidePanel = this.htmlContainer.querySelector('.stories-card__description');
+        const toggleSlidePanelVisibleBtn = this.htmlContainer.querySelector('.stories-card__description-btn');
+
+        dropDown.classList.remove('drop-down--open');
+        storiesContainer.style.removeProperty('pointer-events');
+        slidePanel.style.removeProperty('transform');
+        toggleSlidePanelVisibleBtn.classList.remove('active');
+    }
+
     next() {
         if (!this.stories) return;
         this.stories.next();
@@ -521,7 +515,6 @@ class StoryCard {
     showPreview() {
         this.previewHtmlContainer.classList.remove('hide');
     }
-
 
     _initStories() {
         this.stories = new Stories({
@@ -555,7 +548,6 @@ class StoryCard {
         const slidePanel = this.htmlContainer.querySelector('.stories-card__description');
         const toggleSlidePanelVisibleBtn = this.htmlContainer.querySelector('.stories-card__description-btn');
         const swipePanelBtn = this.htmlContainer.querySelector('.description__top-anchor');
-        const swipePanelScrollContainer = this.htmlContainer.querySelector('.description__scroll-container');
         let isSwipePanelBtnActive = false;
 
         playPauseBtn.addEventListener('click', () => {

@@ -215,7 +215,7 @@ class StoriesCarousel {
         if (storyCard === this.prevStoryCard) return;
 
         this.prevStoryCard?.showPreview();
-        this.prevStoryCard?.stories?.stop();
+        this.prevStoryCard?.stop();
 
         this.prevStoryCard = storyCard;
     }
