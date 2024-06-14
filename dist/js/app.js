@@ -1072,7 +1072,7 @@ class StoriesCarousel {
         const storyCard = this.swiper.slides[this.swiper.realIndex]?.storyCard;
         if (!storyCard) return;
         storyCard.pause();
-        storyCard.stories.stop();
+        storyCard.stop();
     }
 
     next() {
