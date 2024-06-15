@@ -3584,26 +3584,28 @@
 </div>
 
 <script>
+    // This is an example of initialization
     const stories = document.querySelector('[data-stories]');
     if (stories) {
         const storiesCarousel = new StoriesCarousel(stories);
 
         // methods
-        //storiesCarousel.pause();
-        //storiesCarousel.play();
-        //storiesCarousel.show(id: string | null );
-        //storiesCarousel.hide();
-        //storiesCarousel.next();
-        //storiesCarousel.prev();
-        //storiesCarousel.showConfirmationAnimationInActiveStoryCard();
-        //storiesCarousel.swiper.addSlide(index, slides);
-        //storiesCarousel.swiper.appendSlide(slides);
-        //storiesCarousel.swiper.prependSlide(slides);
-        //storiesCarousel.swiper.removeAllSlides();
-        //storiesCarousel.swiper.removeSlide(slideIndex);
+        //  storiesCarousel.pause();
+        //  storiesCarousel.play();
+        //  storiesCarousel.show(id: string | null );
+        //  storiesCarousel.hide();
+        //  storiesCarousel.next();
+        //  storiesCarousel.prev();
+        //  storiesCarousel.showConfirmationAnimationInActiveStoryCard();
+        
+        //  storiesCarousel.swiper.addSlide(index, slides);
+        //  storiesCarousel.swiper.appendSlide(slides);
+        //  storiesCarousel.swiper.prependSlide(slides);
+        //  storiesCarousel.swiper.removeAllSlides();
+        //  storiesCarousel.swiper.removeSlide(slideIndex);
 
 
-        // This is an example code, it should be removed
+        // This is an example of animation display code, it should be removed
         const applyButtons = document.querySelectorAll('.stories-card__apply');
         applyButtons.forEach(btn => {
             btn.addEventListener('click', () => {
