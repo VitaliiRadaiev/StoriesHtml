@@ -630,7 +630,7 @@ class StoryCard {
                 if (Math.abs(touchEndX - touchStartX) < 5 && Math.abs(touchEndY - touchStartY) < 5) {
                     //console.log('fast click');
 
-                    if (isMobile() && document.documentElement.clientWidth < 920) {
+                    if (document.documentElement.clientWidth < 920) {
                         const leftSide = storiesContainer.clientWidth * 0.75;
 
                         if (e.clientX > leftSide) {
@@ -930,6 +930,10 @@ class StoriesCarousel {
                 this.swiper.slidePrev();
             })
 
+            slide.storyCard.onCanPlay(() => {
+                this._checkButtonsVisibility(this.swiper);
+            })
+
             slide.storyCard.onStoryChange(() => {
                 this._checkButtonsVisibility(this.swiper);
             })
@@ -1031,6 +1035,8 @@ class StoriesCarousel {
         let isTryToClose = false;
 
         carousel.addEventListener('touchstart', (e) => {
+            if(e.target.closest('.stories-card__description')) return;
+
             touchStartY = e.touches[0].pageY;
 
             const moveSlide = (e) => {
