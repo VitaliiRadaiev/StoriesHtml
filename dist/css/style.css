@@ -488,10 +488,6 @@ body {
 .stories-card__stories-item video {
   height: 100%;
   width: 100%;
-  will-change: auto;
-  -webkit-transform: none;
-      -ms-transform: none;
-          transform: none;
 }
 
 .stories-card__stories-item div[id^=vjs_] {
@@ -949,6 +945,10 @@ body {
 
 .stories-popup:not(.stories-popup--open) .swiper .swiper-slide .stories-card__preview {
   pointer-events: none;
+}
+
+.stories-popup.stories-popup--open .swiper .swiper-slide {
+  will-change: transform;
 }
 
 .stories-popup--open {

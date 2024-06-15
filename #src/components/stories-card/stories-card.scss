@@ -244,8 +244,6 @@
         & video {
             height: 100%;
             width: 100%;
-            will-change: auto;
-            transform: none;
         }
 
         & div[id^="vjs_"] {
@@ -259,6 +257,10 @@
 
         & .vjs-big-play-button {
             display: none;
+        }
+
+        & canvas {
+
         }
     }
 

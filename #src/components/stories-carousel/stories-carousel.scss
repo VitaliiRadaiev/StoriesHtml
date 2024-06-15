@@ -160,6 +160,12 @@
         }
     }
 
+    &.stories-popup--open {
+        & .swiper .swiper-slide {
+            will-change: transform;
+        }
+    }
+
     &--open {
         opacity: 1;
         visibility: visible;
