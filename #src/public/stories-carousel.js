@@ -1,5 +1,3 @@
-
-
 class ImageStory {
     constructor({ htmlContainer, url, duration }) {
         this.htmlContainer = htmlContainer;
@@ -458,6 +456,7 @@ class StoryCard {
         this._initStories();
         this._initBottomSlidePanel();
         this._initEvents();
+        this._initConfirmAnimation();
 
         this.htmlContainer.classList.add('stories-card-initialized');
     }
@@ -691,7 +690,7 @@ class StoryCard {
         })
 
         toggleSlidePanelVisibleBtn.addEventListener('click', () => {
-            if(toggleSlidePanelVisibleBtn.classList.contains('active')) {
+            if (toggleSlidePanelVisibleBtn.classList.contains('active')) {
                 this.closeSlidePanel();
 
                 this.play();
@@ -714,21 +713,21 @@ class StoryCard {
 
             const moveSlide = (e) => {
                 touchPanelEndY = e.touches[0].pageY;
-                if(touchPanelEndY < touchPanelStartY) return;
-    
+                if (touchPanelEndY < touchPanelStartY) return;
+
                 const progress = touchPanelEndY - touchPanelStartY;
                 slidePanel.style.setProperty('transition', 'none');
                 slidePanel.style.setProperty('transform', `translate3d(0, ${progress}px, 0)`);
             }
 
             const handlerUp = () => {
-                const isSwipeUp = touchPanelEndY< touchPanelStartY;
+                const isSwipeUp = touchPanelEndY < touchPanelStartY;
                 const value = touchPanelEndY - touchPanelStartY;
                 const timeDiff = performance.now() - touchPanelStartTime;
 
                 slidePanel.style.removeProperty('transition');
-                if(!isSwipeUp) {
-                    if ( value > 100 || timeDiff < 150) {
+                if (!isSwipeUp) {
+                    if (value > 100 || timeDiff < 150) {
                         slidePanel.style.removeProperty('transform');
                         toggleSlidePanelVisibleBtn.classList.remove('active');
                         storiesContainer.style.removeProperty('pointer-events');
@@ -762,7 +761,7 @@ class StoryCard {
         })
 
         document.addEventListener('click', (e) => {
-            if(isSwipePanelBtnActive) return;
+            if (isSwipePanelBtnActive) return;
 
             if (!e.target.closest('.drop-down')) {
                 if (dropDown.classList.contains('drop-down--open')) {
@@ -774,7 +773,7 @@ class StoryCard {
                 return;
             }
 
-            if(!(e.target.closest('.stories-card__description') || e.target.closest('.stories-card__description-btn') )) {
+            if (!(e.target.closest('.stories-card__description') || e.target.closest('.stories-card__description-btn'))) {
                 if (toggleSlidePanelVisibleBtn.classList.contains('active')) {
                     this.closeSlidePanel();
                     this.play();
@@ -804,19 +803,396 @@ class StoryCard {
 
     _animateNumberValue({ start, end, duration, callback }) {
         const startTime = performance.now();
-    
+
         function updateNumberValue(currentTime) {
             const elapsedTime = currentTime - startTime;
             const progress = Math.min(elapsedTime / duration, 1);
             const currentNumber = Math.floor(start + (end - start) * progress);
-            
+
             callback(currentNumber);
-    
+
             if (progress < 1) {
                 requestAnimationFrame(updateNumberValue);
             }
         }
-        
+
         requestAnimationFrame(updateNumberValue);
     }
+
+    _initConfirmAnimation() {
+        this.confirmAnimationGif = this.htmlContainer.querySelector('.confirmation-animation-gif');
+        this.confirmAnimationGifSrc = this.confirmAnimationGif.src;
+    }
+
+    showConfirmAnimation() {
+        this.confirmAnimationGif.style.setProperty('visibility', 'visible');
+        this.confirmAnimationGif.style.setProperty('opacity', '1');
+        this.confirmAnimationGif.src = '';
+        this.confirmAnimationGif.src = this.confirmAnimationGifSrc;
+    }
 }
+
+class StoriesCarousel { 
+    constructor(htmlContainer) {
+        this.htmlContainer = htmlContainer;
+        this.carousel = this.htmlContainer.querySelector('[data-slider="stories-carousel"]');
+        this.btnLeft = this.htmlContainer.querySelector('.btn-left');
+        this.btnRight = this.htmlContainer.querySelector('.btn-right');
+        this.swiper = null;
+        this.isMobile = document.documentElement.clientWidth < 920;
+        this.prevStoryCard = null;
+
+        this._init();
+    }
+
+    _init() {
+        this._initSlider();
+        this._initStoriesCards();
+        this._addEvents();
+    }
+
+    _initSlider() {
+        const slider = this.carousel.querySelector('.swiper');
+        let isMobile = document.documentElement.clientWidth < 920;
+
+        const initSlider = () => {
+            if (document.documentElement.clientWidth >= 920 && !isMobile) {
+                if (slider.classList.contains('swiper-initialized')) {
+                    this.swiper.destroy();
+                }
+
+                this.swiper = new Swiper(slider, {
+                    grabCursor: true,
+                    centeredSlides: true,
+                    slidesPerView: 1,
+                    touchRatio: 0,
+                    grabCursor: false,
+                    speed: 400,
+                    on: {
+                        init: (swiper) => {
+                            this._checkButtonsVisibility(swiper);
+                        },
+                        slideChangeTransitionStart: async (swiper) => {
+                            await this._startActiveCard();
+
+                            this._checkButtonsVisibility(swiper);
+                        }
+                    }
+                });
+
+                isMobile = true;
+            }
+
+            if (document.documentElement.clientWidth < 920 && isMobile) {
+                if (slider.classList.contains('swiper-initialized')) {
+                    this.swiper.destroy();
+                }
+                this.swiper = new Swiper(slider, {
+                    effect: "cube",
+                    grabCursor: true,
+                    speed: 400,
+                    threshold: 10,
+                    cubeEffect: {
+                        shadow: false,
+                        slideShadows: false,
+                        shadowOffset: 20,
+                        shadowScale: 0.94,
+                    },
+                    on: {
+                        slideChangeTransitionStart: async () => {
+                            await this._startActiveCard();
+                        }
+                    }
+                });
+
+                isMobile = false;
+            }
+        }
+
+        initSlider();
+
+        window.addEventListener('resize', () => {
+            initSlider();
+        });
+    }
+
+    _initStoriesCards() {
+        this.swiper.slides.forEach(slide => {
+            const storyCardEl = slide.querySelector('.stories-card');
+            if (storyCardEl.classList.contains('stories-card-initialized')) return;
+            slide.storyCard = new StoryCard(storyCardEl);
+
+            slide.storyCard.onEnd(() => {
+                this.swiper.slideNext();
+            })
+
+            slide.storyCard.onBeforeStart(() => {
+                this.swiper.slidePrev();
+            })
+
+            slide.storyCard.onStoryChange(() => {
+                this._checkButtonsVisibility(this.swiper);
+            })
+
+            slide.storyCard.init();
+        })
+    }
+
+    _addEvents() {
+        this.carousel.addEventListener('click', (e) => {
+            if (this.isMobile) return;
+
+            if (e.target.closest('.stories-card')) {
+                const slide = e.target.closest('.swiper-slide');
+
+                if (!slide.classList.contains('swiper-slide-active')) {
+                    const index = this.swiper.slides.indexOf(slide);
+                    this.swiper.slideTo(index);
+                }
+            }
+        })
+
+        this.btnLeft.addEventListener('click', () => {
+            if (this.isMobile) return;
+            this.next();
+        })
+
+        this.btnRight.addEventListener('click', () => {
+            if (this.isMobile) return;
+            this.prev();
+        })
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('[data-action="open-stories"]')) {
+                e.preventDefault();
+                const btn = e.target.closest('[data-action="open-stories"]');
+                const id = btn.getAttribute('data-id');
+                if (!id) return;
+
+                this.show(id);
+            }
+
+            if (e.target.closest('[data-action="close-stories"]')) {
+                e.preventDefault();
+                this.hide();
+            }
+
+            const isCarouselOpen = this.htmlContainer.classList.contains('stories-popup--open');
+            if (isCarouselOpen && document.documentElement.clientWidth >= 920) {
+                if (!(e.target.closest('.swiper-slide') || e.target.closest('.slider-btn'))) {
+                    console.log('click');
+                    this.hide();
+                }
+            }
+
+        })
+
+        const swiperWrapper = this.htmlContainer.querySelector('.swiper-wrapper');
+        let observer = new MutationObserver(mutationRecords => {
+            this._initStoriesCards();
+        });
+
+        observer.observe(swiperWrapper, {
+            childList: true,
+        });
+
+        document.addEventListener('contextmenu', function (event) {
+            if (event.target.tagName === 'IMG') {
+                event.preventDefault();
+            }
+            if (event.target.tagName === 'VIDEO') {
+                event.preventDefault();
+            }
+        })
+
+        document.addEventListener('keydown', (event) => {
+            const isCarouselOpen = this.htmlContainer.classList.contains('stories-popup--open');
+
+            if (!isCarouselOpen) return;
+
+            switch (event.key) {
+                case 'ArrowLeft':
+                    this.next();
+                    break;
+                case 'ArrowRight':
+                    this.prev();
+                    break;
+                case 'Escape':
+                    this.hide();
+                    break;
+            }
+        });
+
+        const carousel = this.htmlContainer;
+        const carouselContent = carousel.querySelector('.stories-popup__inner');
+        let touchStartY = 0;
+        let touchEndY = 0;
+        let swipeDistance = 0;
+        let isTryToClose = false;
+
+        carousel.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].pageY;
+
+            const moveSlide = (e) => {
+                touchEndY = e.touches[0].pageY;
+                if (touchEndY < touchStartY) return;
+
+                if (Math.abs(touchEndY - touchStartY) > 30) {
+                    isTryToClose = true;
+                    swipeDistance = Math.abs(touchEndY - touchStartY) - 30;
+                    carouselContent.style.setProperty('transition', 'none');
+                    carouselContent.style.setProperty('transform', `translate3d(0, ${swipeDistance}px, 0)`);
+                }
+            }
+
+            const handlerUp = () => {
+                if (isTryToClose) {
+                    if (swipeDistance > 40) {
+                        this.hide();
+                    }
+
+                    carouselContent.style.removeProperty('transition');
+                    carouselContent.style.removeProperty('transform');
+                }
+                isTryToClose = false;
+                carousel.removeEventListener('touchmove', moveSlide);
+                carousel.removeEventListener('touchend', handlerUp);
+            }
+
+            carousel.addEventListener('touchmove', moveSlide);
+            carousel.addEventListener('touchend', handlerUp);
+        })
+    }
+
+    _checkButtonsVisibility(swiper) {
+        swiper.isBeginning ? this.btnRight.classList.add('hidden') : this.btnRight.classList.remove('hidden');
+        swiper.isEnd ? this.btnLeft.classList.add('hidden') : this.btnLeft.classList.remove('hidden');
+
+        const storyCard = swiper.slides[swiper.realIndex]?.storyCard;
+        if (!storyCard) return;
+        if (!storyCard.stories) return;
+        storyCard.stories.isStart ? this.btnRight.classList.add('stories-start') : this.btnRight.classList.remove('stories-start');
+        storyCard.stories.isEnd ? this.btnLeft.classList.add('stories-end') : this.btnLeft.classList.remove('stories-end');
+    }
+
+    _getScrollbarWidth() {
+        return window.innerWidth - document.querySelector('body').offsetWidth;
+    }
+    _toggleDisablePageScroll(state) {
+        if (state) {
+            const offsetValue = this._getScrollbarWidth();
+            document.documentElement?.classList.add('overflow-hidden');
+            document.body?.classList.add('overflow-hidden');
+            document.documentElement.style.paddingRight = offsetValue + 'px';
+        } else {
+            document.documentElement?.classList.remove('overflow-hidden');
+            document.body?.classList.remove('overflow-hidden');
+            document.documentElement.style.removeProperty('padding-right');
+        }
+    }
+    _compensateWidthOfScrollbar(isAddPadding) {
+        if (isAddPadding) {
+            const scrollbarWidth = this._getScrollbarWidth();
+            document.documentElement.style.paddingRight = scrollbarWidth + 'px';
+        } else {
+            document.documentElement.style.paddingRight = '0px';
+        }
+    }
+
+    async _startActiveCard() {
+        const storyCard = this.swiper.slides[this.swiper.realIndex]?.storyCard;
+        if (!storyCard) return;
+        if (!storyCard.isCanPlay) {
+            await new Promise(res => {
+                storyCard.onCanPlay(() => {
+                    res();
+                })
+            })
+        }
+        if (!storyCard.stories) return;
+        storyCard.hidePreview();
+        storyCard.play();
+
+        if (storyCard === this.prevStoryCard) return;
+
+        this.prevStoryCard?.showPreview();
+        this.prevStoryCard?.stop();
+
+        this.prevStoryCard = storyCard;
+    }
+
+    pause() {
+        const storyCard = this.swiper.slides[this.swiper.realIndex]?.storyCard;
+        if (!storyCard) return;
+        storyCard.pause();
+    }
+
+    play() {
+        const storyCard = this.swiper.slides[this.swiper.realIndex]?.storyCard;
+        if (!storyCard) return;
+        storyCard.play();
+    }
+
+    show(id) {
+        const activeSlide = this.swiper.slides.find(slide => slide.classList.contains('swiper-slide-active'));
+        const storyCardEl = activeSlide.querySelector('.stories-card');
+
+        if (storyCardEl.getAttribute('data-id') === id) {
+            this._startActiveCard();
+        } else {
+            const index = id
+                ? this.swiper.slides.findIndex(slide => {
+                    const card = slide.querySelector('.stories-card');
+                    return card.getAttribute('data-id') === id;
+                })
+                : 0;
+            this.swiper.slideTo(index, 0);
+        }
+
+        this._toggleDisablePageScroll(true);
+        this._compensateWidthOfScrollbar(true);
+        this.htmlContainer.classList.add('stories-popup--open');
+    }
+
+    hide() {
+        this._toggleDisablePageScroll(false);
+        this._compensateWidthOfScrollbar(false);
+        this.htmlContainer.classList.remove('stories-popup--open');
+
+        const storyCard = this.swiper.slides[this.swiper.realIndex]?.storyCard;
+        if (!storyCard) return;
+        storyCard.pause();
+        storyCard.stop();
+    }
+
+    next() {
+        const storyCard = this.swiper.slides[this.swiper.realIndex]?.storyCard;
+        if (!storyCard) return;
+        if (!storyCard.stories) return;
+
+        if (storyCard.stories.isEnd) {
+            this.swiper.slideNext();
+        } else {
+            storyCard.stories.next();
+        }
+    }
+
+    prev() {
+        const storyCard = this.swiper.slides[this.swiper.realIndex]?.storyCard;
+        if (!storyCard) return;
+        if (!storyCard.stories) return;
+
+        if (storyCard.stories.isStart) {
+            this.swiper.slidePrev();
+        } else {
+            storyCard.stories.prev();
+        }
+    }
+
+    showConfirmationAnimationInActiveStoryCard() {
+        const storyCard = this.swiper.slides[this.swiper.realIndex]?.storyCard;
+        if (!storyCard) return;
+        storyCard.showConfirmAnimation();
+    }
+}
+

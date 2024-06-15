@@ -64,103 +64,106 @@
             </div>
         </div>
         <div class="stories-card__stories">
-            @@for (var i = 0; i < stories.length; i++) { `+stories[i]+` } </div>
-                <div class="stories-card__info">
-                    <div class="stories-card__info-item">
-                        כל הארץ
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAABJCAYAAABxcwvcAAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAARKSURBVHgB7Zz7VdswFMY/evp/6QRVJ6hHcDfoBk0ngA1IJyidgGxAN3A2ACZImACY4Kt0ZB9kSQ6+cmIrwb9z7olx/JCv70uPAMzMzMzMzJwaZ5gIkoX+MPJNy7kW5Xz9rGWr5VHL/dnZ2RrvAa2Ucy2XWiotT5RTaVloUTg1auVcJSqmi5sxlXUwdzPK0R8XWi5h3SlG41b33v7zWood5xpWWn5rd9zi2NAKKrVs2O02xu2Kntcq+OqmMTZaFjgmaF2ry0VKDMC4mJZVx/WvcAzUiohZjsIe2aGsW1o3z5OIgkygvsQBoc12G+++d1kqKqKgDUfKPrVV+Yq6RU4wjEGjKchpQ0xRf5ADtFlsUgU5bYkp6gemhLZI3HgxSGFCakU9eW2aLj5F3OygQbovxnqycLv6jbncICNoSwEXhbFhmM0UMiLidtcYQFLfzcQivA5trHTf6RcSoa3C3SET05970LLW171HIvq6S/3RVOHmml/19Z4xBrQF3GAros2MFXdTDbi+HxLGi5mev98hAX3eBWUk9cvYfgkVxoJtXxe/HcY7wE+18m/YPSgnVhTt6IF7j8OXA7TDFi69hjuc81Xk4ZexxtcP6CurhIDI/UTnJ0GvBoEQhjGoeOP4wlOU2GU40PINHyDDfShR5qENwKWz6/db2av+/q+zq0ywhq2zrZCAVEnK2X6EDLcfZVJx39rluj6+QeTisOVEg0ICUiV9cbafIKNlhX1rlvq4tbPrG2S49/mEBKRK2hdbyHhxthVkDC4gpUraV8WqIMO1gC1kDE77UiW5b/QzZLhBuqCsZimd7QfIcEPECxKQKmnrbEtjwz9n2yioVzrWyrxA2xrWkOGeu8WhYdhvE5lyYp3Eqesk6Q0HVbCRhzZcRY7rmhpXEBC5X4kx8Bq+hBC2+1MN5poVbd/tlvG+2xJCvHtJS5Z02J4UTOpZ0/bXJCyRANvu/Q9jwXCGpEQCtK5bvaGcauD1XRZI5CPkmFRu6qUmaJeQZxzUK0G+08YZ02Vxs6VJ80MXb114f68xJvrBrp03NO20TQdsT3eNP1ERcbklMoJhqVJiCtiOJ1lZk2dF4w3bRhqSpTUxHB5eYEoi1qQwIQzXA0xnRV6jmEujmOukKduZzjDJmgCGwTqfqXdmsLok4mYb5mJFDQyD+Khux3CBxAI5EnG7UZa8MMxmWa1waVG73Z3X4J84IAzXIm2Y8+pbA+MrzaRTQEPupXAMdLxdhT3C+PrILFba9YbheNHe3IBhNjUscYwwXLG/l0XoDOPeCscMw0G1QYpiWFHnufpfAuMZL+nBGP/VwXErqKEjhvRWVH3+bURBCqcE49no7q0H7bDE01NQQ4eiOh9YevzJsMMyCu+4ggmWdzJ0xBjW+0x9VUW+O/4slgLDDnEXK7xnuHsm9+C/vOzLZP9hooGvC06bEYPmZxPXo/3MYWZmZmZmZmZmJon/actBvNX5awcAAAAASUVORK5CYII="
-                            alt="location">
-                    </div>
-                    <div class="stories-card__info-item">
-                        תחום
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAA6CAYAAAAA0F95AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKVSURBVHgB7Zv/ddowEMe/7uv/ZYO6EzQjiA3YIDBBRoBOkHQC6ATNBnYnCJ0AdwLoBJdTdArCMf5tvzjS5717lmUhTl8LyT4JIOA3EQaGiGI+KDQni6IoxVTRDWdLqBsHtgWmiDjfFwoD8RkDwA4v+RDLacb2k+2EZii2W0lv2b5hKtBl14/Rkr7qKeMThiGWox7IMrTnT0GdvTKUAJMhCADPuZgFhhhoOtb5xUnHffhXOCZxxXdsR/KHLYmYEZk5ewv/SLk3zLUAT3xyI5k7fHwUzlPqHE63SOABusc7bV6GaRCeEwSA5wQB4DlBAHhOEACeEwSA5wQB4DmuADMaKPb+XiCzwnSXz3Q5uuGij4JuOBWvUy70xQ0V8yTBgxgTRBq9puJY50FCga+FdcT1ga6TiFAKLSETeD3UsC3bDA3Rn5FG31P5wux9WSWWsgjx0RWkjrMicBM2NetcSIMTuu6z9deydOuJ8gJIMmVb4bxCqyr80Su/e5iV4H9yzCRfm17jt8pnJfXETpk520zy7PErTADX5lX584vtUb7fRr5XHA3eFX7KUSnJ5c9E7R2ZsaELClegbnsKtF/6Z/ymV1IuEOpeq7U/gBU7iZKPVhCYO6HYvsPckRuMRwbTS//C3Om9+NiYVhsk5MtSsVdYGC2C7a6xpPXylkKz5W0r+H9JZ9Y6Lre/odcdIuzcviifzKC2Rn1OXNcKIzDIFpkK1izI7ZVrjae/rowlQIpzD1A1y4/CKC9Dst/vR83iTcp2ZrSfAIugH5weUNHN+x7kqhh1DJDZo9V0NRQhHgDPCQLAc4IA8JwgADwnCADPCZulc+f6Of0l3MUvLr/xzp7bO+CG6y7alI8Kb9AscjM1dEjt4r9Hz1mjhUbM6z8yAAAAAElFTkSuQmCC"
-                            alt="suitcase">
-                    </div>
-                    <div class="stories-card__info-item">
-                        34 לשעה
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAIXSURBVHgB7dvxUcIwFAbwr57/wwaygY4AG7CBOIFuIG7gBuIE4gTUDdzAMoE4QX1Pq3KQ+pICBZLvd5erBmPha5qm1wAQERERERERHZgMW1SWZU82WrpV+dFZ+d3H3FG3qMrXz1mWvcL/ffVX/5e0n2KXZMddKddSZlLey3bNAt7nyNH+zaftKRqSHQxl84DwnnFUTtCAhDOWzRMiD0cFB1SFc4tEBJ1iei7DDmd5IFUFNqO9tIdj6K06sNUMmFqvg/UZdqBmkD2sQbrqPT3HS3qpHcglc4EIhYxBl466AhGHo7wCKt0TLTWOORzl24MuauqfETnfgM4ddXnsvUf5BuS6xEYfjtokoAIJaHSrkZJNAor+Pkw1vpsPIdOEPtYnmYUM8jkOXCsB4XuSOVqpm0jJceA4BhkYkIEBGRiQgQEZGJCBARkYkIEBGRiQgQEZjiIguamdZOsGaAF7kIEBGRiQIZWAOo66Ah5SCajvqPN6KpNKQK4Hnzk8RB+QsejCFHVA1ZoC13omfWDwAg/RBlSFo8sEe46X7+GpracaLt3qQ6yRo1vUNaprg79VaLqIqy9lWPN3BQIWXewzoCFqPoSEgB0a/3cAVqU2UdRwHkMapBKQznluJJw7BNrnKdaWXMpVyGm1rK2A9AgWWP8Oxy72o0XnOLmUqQQzxwa2+mWWJmRA1sA6aO4jhZVuRERERERERL8+AZ1TT9IC/N6+AAAAAElFTkSuQmCC"
-                            alt="dollar">
-                    </div>
-                </div>
+            @@for (var i = 0; i < stories.length; i++) { `+stories[i]+` }
         </div>
-        <div class="stories-card__footer">
-            <div class="stories-card__description description">
-                <div class="description__top-anchor"></div>
-                <div class="description__scroll-container swiper">
-
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <ul class="description__list">
-                                <li>
-                                    <strong>לעבוד אצלנו</strong>
-                                </li>
-                                <li>
-                                    <strong>תיאור המשרה:</strong>
-                                    בואו לעבוד איתנו
-                                </li>
-                                <li>
-                                    <strong>אזור בארץ:</strong>
-                                    מרכז
-                                </li>
-                                <li>
-                                    <strong>מיקום המשרה:</strong>
-                                    היברידי
-                                </li>
-                                <li>
-                                    <strong>שכר:</strong>
-                                </li>
-                                <li>
-                                    המשרה פונה לנשים וגברים כאחד.
-                                </li>
-                                <li>
-                                    <strong>לעבוד אצלנו</strong>
-                                </li>
-                                <li>
-                                    <strong>תיאור המשרה:</strong>
-                                    בואו לעבוד איתנו
-                                </li>
-                                <li>
-                                    <strong>אזור בארץ:</strong>
-                                    מרכז
-                                </li>
-                                <li>
-                                    <strong>מיקום המשרה:</strong>
-                                    היברידי
-                                </li>
-                                <li>
-                                    <strong>שכר:</strong>
-                                </li>
-                                <li>
-                                    המשרה פונה לנשים וגברים כאחד.
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="swiper-scrollbar"></div>
-
-                </div>
+        <div class="stories-card__info">
+            <div class="stories-card__info-item">
+                כל הארץ
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAABJCAYAAABxcwvcAAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAARKSURBVHgB7Zz7VdswFMY/evp/6QRVJ6hHcDfoBk0ngA1IJyidgGxAN3A2ACZImACY4Kt0ZB9kSQ6+cmIrwb9z7olx/JCv70uPAMzMzMzMzJwaZ5gIkoX+MPJNy7kW5Xz9rGWr5VHL/dnZ2RrvAa2Ucy2XWiotT5RTaVloUTg1auVcJSqmi5sxlXUwdzPK0R8XWi5h3SlG41b33v7zWood5xpWWn5rd9zi2NAKKrVs2O02xu2Kntcq+OqmMTZaFjgmaF2ry0VKDMC4mJZVx/WvcAzUiohZjsIe2aGsW1o3z5OIgkygvsQBoc12G+++d1kqKqKgDUfKPrVV+Yq6RU4wjEGjKchpQ0xRf5ADtFlsUgU5bYkp6gemhLZI3HgxSGFCakU9eW2aLj5F3OygQbovxnqycLv6jbncICNoSwEXhbFhmM0UMiLidtcYQFLfzcQivA5trHTf6RcSoa3C3SET05970LLW171HIvq6S/3RVOHmml/19Z4xBrQF3GAros2MFXdTDbi+HxLGi5mev98hAX3eBWUk9cvYfgkVxoJtXxe/HcY7wE+18m/YPSgnVhTt6IF7j8OXA7TDFi69hjuc81Xk4ZexxtcP6CurhIDI/UTnJ0GvBoEQhjGoeOP4wlOU2GU40PINHyDDfShR5qENwKWz6/db2av+/q+zq0ywhq2zrZCAVEnK2X6EDLcfZVJx39rluj6+QeTisOVEg0ICUiV9cbafIKNlhX1rlvq4tbPrG2S49/mEBKRK2hdbyHhxthVkDC4gpUraV8WqIMO1gC1kDE77UiW5b/QzZLhBuqCsZimd7QfIcEPECxKQKmnrbEtjwz9n2yioVzrWyrxA2xrWkOGeu8WhYdhvE5lyYp3Eqesk6Q0HVbCRhzZcRY7rmhpXEBC5X4kx8Bq+hBC2+1MN5poVbd/tlvG+2xJCvHtJS5Z02J4UTOpZ0/bXJCyRANvu/Q9jwXCGpEQCtK5bvaGcauD1XRZI5CPkmFRu6qUmaJeQZxzUK0G+08YZ02Vxs6VJ80MXb114f68xJvrBrp03NO20TQdsT3eNP1ERcbklMoJhqVJiCtiOJ1lZk2dF4w3bRhqSpTUxHB5eYEoi1qQwIQzXA0xnRV6jmEujmOukKduZzjDJmgCGwTqfqXdmsLok4mYb5mJFDQyD+Khux3CBxAI5EnG7UZa8MMxmWa1waVG73Z3X4J84IAzXIm2Y8+pbA+MrzaRTQEPupXAMdLxdhT3C+PrILFba9YbheNHe3IBhNjUscYwwXLG/l0XoDOPeCscMw0G1QYpiWFHnufpfAuMZL+nBGP/VwXErqKEjhvRWVH3+bURBCqcE49no7q0H7bDE01NQQ4eiOh9YevzJsMMyCu+4ggmWdzJ0xBjW+0x9VUW+O/4slgLDDnEXK7xnuHsm9+C/vOzLZP9hooGvC06bEYPmZxPXo/3MYWZmZmZmZmZmJon/actBvNX5awcAAAAASUVORK5CYII="
+                    alt="location">
             </div>
-            <div class="stories-card__footer-inner">
-                <button type="button" class="stories-card__description-btn">
-                    <span>
-                        הראה פחות
-                        <img class="icon"
-                            src="data:image/svg+xml,%3csvg%20width='11'%20height='12'%20viewBox='0%200%2011%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M1.40083%207.29959L4.63987%204.06055L7.87891%207.29959'%20stroke='%23737373'%20stroke-width='0.561434'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
-                            alt="arrow-up">
-                    </span>
-                </button>
-                <button type="button" class="stories-card__apply">
-                    נראה כמו כיוון
-                </button>
+            <div class="stories-card__info-item">
+                תחום
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAA6CAYAAAAA0F95AAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKVSURBVHgB7Zv/ddowEMe/7uv/ZYO6EzQjiA3YIDBBRoBOkHQC6ATNBnYnCJ0AdwLoBJdTdArCMf5tvzjS5717lmUhTl8LyT4JIOA3EQaGiGI+KDQni6IoxVTRDWdLqBsHtgWmiDjfFwoD8RkDwA4v+RDLacb2k+2EZii2W0lv2b5hKtBl14/Rkr7qKeMThiGWox7IMrTnT0GdvTKUAJMhCADPuZgFhhhoOtb5xUnHffhXOCZxxXdsR/KHLYmYEZk5ewv/SLk3zLUAT3xyI5k7fHwUzlPqHE63SOABusc7bV6GaRCeEwSA5wQB4DlBAHhOEACeEwSA5wQB4DmuADMaKPb+XiCzwnSXz3Q5uuGij4JuOBWvUy70xQ0V8yTBgxgTRBq9puJY50FCga+FdcT1ga6TiFAKLSETeD3UsC3bDA3Rn5FG31P5wux9WSWWsgjx0RWkjrMicBM2NetcSIMTuu6z9deydOuJ8gJIMmVb4bxCqyr80Su/e5iV4H9yzCRfm17jt8pnJfXETpk520zy7PErTADX5lX584vtUb7fRr5XHA3eFX7KUSnJ5c9E7R2ZsaELClegbnsKtF/6Z/ymV1IuEOpeq7U/gBU7iZKPVhCYO6HYvsPckRuMRwbTS//C3Om9+NiYVhsk5MtSsVdYGC2C7a6xpPXylkKz5W0r+H9JZ9Y6Lre/odcdIuzcviifzKC2Rn1OXNcKIzDIFpkK1izI7ZVrjae/rowlQIpzD1A1y4/CKC9Dst/vR83iTcp2ZrSfAIugH5weUNHN+x7kqhh1DJDZo9V0NRQhHgDPCQLAc4IA8JwgADwnCADPCZulc+f6Of0l3MUvLr/xzp7bO+CG6y7alI8Kb9AscjM1dEjt4r9Hz1mjhUbM6z8yAAAAAElFTkSuQmCC"
+                    alt="suitcase">
+            </div>
+            <div class="stories-card__info-item">
+                34 לשעה
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAIXSURBVHgB7dvxUcIwFAbwr57/wwaygY4AG7CBOIFuIG7gBuIE4gTUDdzAMoE4QX1Pq3KQ+pICBZLvd5erBmPha5qm1wAQERERERERHZgMW1SWZU82WrpV+dFZ+d3H3FG3qMrXz1mWvcL/ffVX/5e0n2KXZMddKddSZlLey3bNAt7nyNH+zaftKRqSHQxl84DwnnFUTtCAhDOWzRMiD0cFB1SFc4tEBJ1iei7DDmd5IFUFNqO9tIdj6K06sNUMmFqvg/UZdqBmkD2sQbrqPT3HS3qpHcglc4EIhYxBl466AhGHo7wCKt0TLTWOORzl24MuauqfETnfgM4ddXnsvUf5BuS6xEYfjtokoAIJaHSrkZJNAor+Pkw1vpsPIdOEPtYnmYUM8jkOXCsB4XuSOVqpm0jJceA4BhkYkIEBGRiQgQEZGJCBARkYkIEBGRiQgQEZjiIguamdZOsGaAF7kIEBGRiQIZWAOo66Ah5SCajvqPN6KpNKQK4Hnzk8RB+QsejCFHVA1ZoC13omfWDwAg/RBlSFo8sEe46X7+GpracaLt3qQ6yRo1vUNaprg79VaLqIqy9lWPN3BQIWXewzoCFqPoSEgB0a/3cAVqU2UdRwHkMapBKQznluJJw7BNrnKdaWXMpVyGm1rK2A9AgWWP8Oxy72o0XnOLmUqQQzxwa2+mWWJmRA1sA6aO4jhZVuRERERERERL8+AZ1TT9IC/N6+AAAAAElFTkSuQmCC"
+                    alt="dollar">
             </div>
         </div>
-        <div class="stories-card__preview">
-            <div class="stories-card__preview-img" style="background-image: url(@@storyPreview);"></div>
-            <div class="stories-card__preview-logo">
-                <img alt="Business logo" src="@@logoUrl">
-                <div class="stories-card__preview-company-title">
-                    @@companyTitle
+
+        <img class="confirmation-animation-gif" src="./public/images/confetti-blue.gif" alt="">
+    </div>
+    <div class="stories-card__footer">
+        <div class="stories-card__description description">
+            <div class="description__top-anchor"></div>
+            <div class="description__scroll-container swiper">
+
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <ul class="description__list">
+                            <li>
+                                <strong>לעבוד אצלנו</strong>
+                            </li>
+                            <li>
+                                <strong>תיאור המשרה:</strong>
+                                בואו לעבוד איתנו
+                            </li>
+                            <li>
+                                <strong>אזור בארץ:</strong>
+                                מרכז
+                            </li>
+                            <li>
+                                <strong>מיקום המשרה:</strong>
+                                היברידי
+                            </li>
+                            <li>
+                                <strong>שכר:</strong>
+                            </li>
+                            <li>
+                                המשרה פונה לנשים וגברים כאחד.
+                            </li>
+                            <li>
+                                <strong>לעבוד אצלנו</strong>
+                            </li>
+                            <li>
+                                <strong>תיאור המשרה:</strong>
+                                בואו לעבוד איתנו
+                            </li>
+                            <li>
+                                <strong>אזור בארץ:</strong>
+                                מרכז
+                            </li>
+                            <li>
+                                <strong>מיקום המשרה:</strong>
+                                היברידי
+                            </li>
+                            <li>
+                                <strong>שכר:</strong>
+                            </li>
+                            <li>
+                                המשרה פונה לנשים וגברים כאחד.
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                <div class="swiper-scrollbar"></div>
+
+            </div>
+        </div>
+        <div class="stories-card__footer-inner">
+            <button type="button" class="stories-card__description-btn">
+                <span>
+                    הראה פחות
+                    <img class="icon"
+                        src="data:image/svg+xml,%3csvg%20width='11'%20height='12'%20viewBox='0%200%2011%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M1.40083%207.29959L4.63987%204.06055L7.87891%207.29959'%20stroke='%23737373'%20stroke-width='0.561434'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
+                        alt="arrow-up">
+                </span>
+            </button>
+            <button type="button" class="stories-card__apply">
+                נראה כמו כיוון
+            </button>
+        </div>
+    </div>
+    <div class="stories-card__preview">
+        <div class="stories-card__preview-img" style="background-image: url(@@storyPreview);"></div>
+        <div class="stories-card__preview-logo">
+            <img alt="Business logo" src="@@logoUrl">
+            <div class="stories-card__preview-company-title">
+                @@companyTitle
             </div>
         </div>
     </div>
+</div>

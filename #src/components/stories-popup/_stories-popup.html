@@ -3,8 +3,10 @@
         <img src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none'%3E%3Cpath stroke='%23737373' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M1 13 13 1M1 1l12 12'/%3E%3C/svg%3E"
             alt="">
     </button>
+    <div class="stories-popup__logo">
+        <img src="./public/images/logo.png" alt="">
+    </div>
     <div class="stories-popup__inner">
-
         <div class="stories-popup__content">
             @@include('../stories-carousel/_stories-carousel.html')
         </div>
@@ -23,10 +25,20 @@
         //storiesCarousel.hide();
         //storiesCarousel.next();
         //storiesCarousel.prev();
+        //storiesCarousel.showConfirmationAnimationInActiveStoryCard();
         //storiesCarousel.swiper.addSlide(index, slides);
         //storiesCarousel.swiper.appendSlide(slides);
         //storiesCarousel.swiper.prependSlide(slides);
         //storiesCarousel.swiper.removeAllSlides();
         //storiesCarousel.swiper.removeSlide(slideIndex);
+
+
+        // This is an example code, it should be removed
+        const applyButtons = document.querySelectorAll('.stories-card__apply');
+        applyButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                storiesCarousel.showConfirmationAnimationInActiveStoryCard();
+            })
+        })
     }
 </script>

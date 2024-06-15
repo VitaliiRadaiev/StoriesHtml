@@ -10,4 +10,96 @@
 	<link rel="stylesheet" href="css/style.css">
 
 	@@include('_js.html',{})
+
+	<style>
+		@font-face {
+			font-family: "Ploni";
+			font-display: swap;
+			src: url("../fonts/ploni-bold-aaa.otf") format("opentype");
+			font-weight: 700;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "Ploni";
+			font-display: swap;
+			src: url("../fonts/ploni-demibold-aaa.otf") format("opentype");
+			font-weight: 600;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "Ploni";
+			font-display: swap;
+			src: url("../fonts/ploni-light-aaa.otf") format("opentype");
+			font-weight: 300;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "Ploni";
+			font-display: swap;
+			src: url("../fonts/ploni-regular-aaa.otf") format("opentype");
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		*,
+		*:before,
+		*:after {
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Ploni';
+			min-height: 100%;
+		}
+
+		.container {
+			margin: 0 auto;
+			max-width: 920px;
+			padding-left: 15px;
+			padding-right: 15px;
+			width: 100%;
+		}
+
+		.job-list {
+			list-style: none;
+			padding: 0;
+			display: grid;
+			gap: 40px;
+		}
+
+		.job-list-card__top {
+			display: flex;
+			align-items: center;
+			gap: 16px;
+		}
+
+		.job-list-card__top .stories-nav-item {
+			flex: 0 0 auto;
+		}
+
+		.job-list-card__title {
+			height: 40px;
+			flex: 1 1 auto;
+			background: linear-gradient(to right, #eee 40%, #fafafa 50%, #eee 60%);
+			border-radius: 6px;
+		}
+
+		.job-list-card__body {
+			background: linear-gradient(to right, #eee 40%, #fafafa 50%, #eee 60%);
+			border-radius: 6px;
+			height: 300px;
+			margin-top: 16px;
+		}
+
+		@media (min-width: 920px) {
+			.job-list {
+				grid-template-columns: 1fr 1fr 1fr;
+			}
+		}
+	</style>
 </head>

@@ -137,8 +137,7 @@
     padding: 0;
     opacity: 0;
     visibility: hidden;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     white-space: normal;
     outline: none;
     -webkit-overflow-scrolling: touch;
@@ -174,6 +173,25 @@
         & .stories-popup__content {
             opacity: 1;
         }
+    }
+
+    &__logo {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        height: 40px;
+        z-index: 4;
+
+        & img {
+            height: 100%;
+            width: auto;
+            display: block;
+            filter: invert(100%) brightness(200%) contrast(100%);
+        }
+        @media (max-width: 919.98px) {
+            display: none;
+        }
+        
     }
 
     &__close {
@@ -216,12 +234,17 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        transition: transform .15s ease;
     }
 
     &__content {
         opacity: 0;
-        transition: opacity 0.4s ease;
+        transition: opacity 0.4s ease, transform .15s ease;
         width: 100%;
+    }
+
+    & button {
+        outline: none !important;
     }
 }
 
