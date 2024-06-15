@@ -123,56 +123,16 @@ class VideoStory {
     init() {
         const videoType = this.videoType;
         const videoEl = document.createElement('video');
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-
         videoEl.setAttribute('muted', 'muted');
         videoEl.setAttribute('playsinline', 'playsinline');
         videoEl.setAttribute('disablepictureinpicture', '');
         videoEl.setAttribute('controlslist', 'nodownload noplaybackrate');
         videoEl.setAttribute('type', videoType);
-
-        videoEl.style.setProperty('display', 'none');
-        //videoEl.style.setProperty('opacity', '0');
-
         this.htmlContainer.append(videoEl);
-        this.htmlContainer.append(canvas);
-
-        const drawVideo = () => {
-
-            context.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Calculate aspect ratio
-            const videoAspectRatio = videoEl.videoWidth / videoEl.videoHeight;
-            const canvasAspectRatio = canvas.width / canvas.height;
-
-            let drawWidth, drawHeight, offsetX, offsetY;
-
-            // Calculate dimensions to maintain aspect ratio
-            if (videoAspectRatio > canvasAspectRatio) {
-                drawWidth = canvas.width;
-                drawHeight = canvas.width / videoAspectRatio;
-                offsetX = 0;
-                offsetY = (canvas.height - drawHeight) / 2;
-            } else {
-                drawWidth = canvas.height * videoAspectRatio;
-                drawHeight = canvas.height;
-                offsetX = (canvas.width - drawWidth) / 2;
-                offsetY = 0;
-            }
-
-            // Draw the video frame to the canvas
-            context.drawImage(videoEl, offsetX, offsetY, drawWidth, drawHeight);
-            requestAnimationFrame(drawVideo);
-        }
 
         this.player = videojs(videoEl);
         this.player.src({ type: videoType, src: this.url });
         this.player.ready(() => {
-            canvas.width = this.htmlContainer.closest('.stories-card__stories').clientWidth;
-            canvas.height = this.htmlContainer.closest('.stories-card__stories').clientHeight;
-
-            drawVideo();
             this.canPlay = true;
             this.readyFns.forEach(fn => fn());
         });
@@ -731,7 +691,7 @@ class StoryCard {
         })
 
         toggleSlidePanelVisibleBtn.addEventListener('click', () => {
-            if (toggleSlidePanelVisibleBtn.classList.contains('active')) {
+            if(toggleSlidePanelVisibleBtn.classList.contains('active')) {
                 this.closeSlidePanel();
 
                 this.play();
@@ -754,21 +714,21 @@ class StoryCard {
 
             const moveSlide = (e) => {
                 touchPanelEndY = e.touches[0].pageY;
-                if (touchPanelEndY < touchPanelStartY) return;
-
+                if(touchPanelEndY < touchPanelStartY) return;
+    
                 const progress = touchPanelEndY - touchPanelStartY;
                 slidePanel.style.setProperty('transition', 'none');
                 slidePanel.style.setProperty('transform', `translate3d(0, ${progress}px, 0)`);
             }
 
             const handlerUp = () => {
-                const isSwipeUp = touchPanelEndY < touchPanelStartY;
+                const isSwipeUp = touchPanelEndY< touchPanelStartY;
                 const value = touchPanelEndY - touchPanelStartY;
                 const timeDiff = performance.now() - touchPanelStartTime;
 
                 slidePanel.style.removeProperty('transition');
-                if (!isSwipeUp) {
-                    if (value > 100 || timeDiff < 150) {
+                if(!isSwipeUp) {
+                    if ( value > 100 || timeDiff < 150) {
                         slidePanel.style.removeProperty('transform');
                         toggleSlidePanelVisibleBtn.classList.remove('active');
                         storiesContainer.style.removeProperty('pointer-events');
@@ -802,7 +762,7 @@ class StoryCard {
         })
 
         document.addEventListener('click', (e) => {
-            if (isSwipePanelBtnActive) return;
+            if(isSwipePanelBtnActive) return;
 
             if (!e.target.closest('.drop-down')) {
                 if (dropDown.classList.contains('drop-down--open')) {
@@ -814,7 +774,7 @@ class StoryCard {
                 return;
             }
 
-            if (!(e.target.closest('.stories-card__description') || e.target.closest('.stories-card__description-btn'))) {
+            if(!(e.target.closest('.stories-card__description') || e.target.closest('.stories-card__description-btn') )) {
                 if (toggleSlidePanelVisibleBtn.classList.contains('active')) {
                     this.closeSlidePanel();
                     this.play();
@@ -844,19 +804,19 @@ class StoryCard {
 
     _animateNumberValue({ start, end, duration, callback }) {
         const startTime = performance.now();
-
+    
         function updateNumberValue(currentTime) {
             const elapsedTime = currentTime - startTime;
             const progress = Math.min(elapsedTime / duration, 1);
             const currentNumber = Math.floor(start + (end - start) * progress);
-
+            
             callback(currentNumber);
-
+    
             if (progress < 1) {
                 requestAnimationFrame(updateNumberValue);
             }
         }
-
+        
         requestAnimationFrame(updateNumberValue);
     }
 }

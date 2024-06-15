@@ -503,13 +503,6 @@ body {
   display: none;
 }
 
-.stories-card__stories-item canvas {
-  height: 100%;
-  width: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
-}
-
 .stories-card__info {
   position: absolute;
   z-index: 2;

@@ -258,12 +258,6 @@
         & .vjs-big-play-button {
             display: none;
         }
-
-        & canvas {
-            height: 100%;
-            width: 100%;
-            object-fit: contain;
-        }
     }
 
     &__info {
