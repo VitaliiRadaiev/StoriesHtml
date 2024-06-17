@@ -40,6 +40,8 @@
         applyButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 storiesCarousel.showConfirmationAnimationInActiveStoryCard();
+                btn.innerText = 'הגשת מועמדות למשרה זו בהצלחה :)';
+                btn.classList.add('disabled');
             })
         })
     }

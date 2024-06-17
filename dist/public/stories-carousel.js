@@ -580,6 +580,7 @@ class StoryCard {
         const playPauseBtn = this.htmlContainer.querySelector('.stories-card__play-pause-btn');
         const storiesContainer = this.htmlContainer.querySelector('.stories-card__stories');
         const dropDown = this.htmlContainer.querySelector('.drop-down');
+        const dropDownIcon = this.htmlContainer.querySelector('.drop-down__icon');
         const copyLink = this.htmlContainer.querySelector('[data-copy-link]');
         const slidePanel = this.htmlContainer.querySelector('.stories-card__description');
         const toggleSlidePanelVisibleBtn = this.htmlContainer.querySelector('.stories-card__description-btn');
@@ -671,10 +672,16 @@ class StoryCard {
         });
 
 
-        dropDown.addEventListener('click', () => {
-            dropDown.classList.add('drop-down--open');
-            storiesContainer.style.setProperty('pointer-events', 'none');
-            this.pause();
+        dropDownIcon.addEventListener('click', () => {
+            if(dropDown.classList.contains('drop-down--open')) {
+                dropDown.classList.remove('drop-down--open');
+                this.play();
+                storiesContainer.style.removeProperty('pointer-events');
+            } else {
+                dropDown.classList.add('drop-down--open');
+                storiesContainer.style.setProperty('pointer-events', 'none');
+                this.pause();
+            }
         })
 
 
@@ -700,7 +707,6 @@ class StoryCard {
                 this.pause();
             }
         })
-
 
         let touchPanelStartY = 0;
         let touchPanelEndY = 0;

@@ -563,6 +563,16 @@
 
 .stories-card__description-btn > span {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.stories-card__description-btn > span:before {
+  content: attr(data-btn-text);
 }
 
 .stories-card__description-btn .icon {
@@ -575,6 +585,10 @@
   height: 1em;
   width: auto;
   display: block;
+}
+
+.stories-card__description-btn.active > span:before {
+  content: attr(data-btn-active-text);
 }
 
 .stories-card__description-btn.active .icon {
@@ -606,6 +620,11 @@
   -o-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
   cursor: pointer;
+}
+
+.stories-card__apply.disabled {
+  background-color: transparent;
+  color: rgb(12, 19, 16);
 }
 
 .progress-line {
@@ -1188,7 +1207,7 @@
     background-color: rgba(0, 0, 0, 0.1);
   }
 
-  .stories-card__apply:hover {
+  .stories-card__apply:not(.disabled):hover {
     background-color: #1b27a6;
   }
 
