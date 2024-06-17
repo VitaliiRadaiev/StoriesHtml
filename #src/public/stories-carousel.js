@@ -889,7 +889,6 @@ class StoriesCarousel {
                 }
                 this.swiper = new Swiper(slider, {
                     effect: "cube",
-                    grabCursor: true,
                     speed: 400,
                     threshold: 10,
                     cubeEffect: {

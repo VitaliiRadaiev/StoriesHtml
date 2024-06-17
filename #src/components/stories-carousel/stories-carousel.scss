@@ -103,7 +103,7 @@
                     height: 100%;
 
                     &:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
-                        opacity: 0;
+                        visibility: hidden;
                     }
 
                     // &:not(.swiper-slide-active) {
@@ -161,7 +161,7 @@
 
     &.stories-popup--open {
         & .swiper .swiper-slide {
-            will-change: transform;
+           // will-change: transform;
         }
     }
 

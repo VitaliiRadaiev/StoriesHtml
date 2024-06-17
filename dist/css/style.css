@@ -1,3 +1,35 @@
+@font-face {
+  font-family: "ploni-demibold-aaa";
+  font-display: swap;
+  src: url("../fonts/ploni-demibold-aaa.woff") format("woff"), url("../fonts/ploni-demibold-aaa.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ploni-bold-aaa";
+  font-display: swap;
+  src: url("../fonts/ploni-bold-aaa.woff") format("woff"), url("../fonts/ploni-bold-aaa.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ploni-light-aaa";
+  font-display: swap;
+  src: url("../fonts/ploni-light-aaa.woff") format("woff"), url("../fonts/ploni-light-aaa.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ploni-regular-aaa";
+  font-display: swap;
+  src: url("../fonts/ploni-regular-aaa.woff") format("woff"), url("../fonts/ploni-regular-aaa.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
 .stories-nav {
   position: relative;
 }
@@ -101,8 +133,6 @@
   background-color: #fff;
   height: 100%;
   color: #fff;
-  -webkit-box-shadow: 0px 0px 40px black;
-          box-shadow: 0px 0px 40px black;
   position: relative;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -867,10 +897,6 @@
   pointer-events: none;
 }
 
-.stories-popup.stories-popup--open .swiper .swiper-slide {
-  will-change: transform;
-}
-
 .stories-popup--open {
   opacity: 1;
   visibility: visible;
@@ -967,6 +993,11 @@
 }
 
 @media (min-width: 920px) {
+  .stories-card {
+    -webkit-box-shadow: 0px 0px 40px black;
+            box-shadow: 0px 0px 40px black;
+  }
+
   .stories-card__close {
     display: none;
   }
@@ -1123,7 +1154,7 @@
   }
 
   .stories-carousel > .swiper > .swiper-wrapper > .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
-    opacity: 0;
+    visibility: hidden;
   }
 
   .stories-carousel .slider-btn {
