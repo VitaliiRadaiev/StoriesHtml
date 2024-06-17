@@ -506,6 +506,12 @@
                 background-color: rgba(#fff, 0.1);
             }
         }
+
+        & img, & svg {
+            height: 100%;
+            width: auto;
+            display: block;
+        }
     }
 
     &__content {
