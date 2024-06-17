@@ -34,6 +34,7 @@
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
+        background-color: #000;
 
         @media (max-width: 919.98px) {
             display: none !important;
@@ -58,6 +59,11 @@
         pointer-events: none;
         user-select: none;
         background-position: center;
+        background-color: #000;
+
+        @media (min-width: 920px) {
+            filter: blur(8px);
+        }
 
         & img {
             height: 100%;
