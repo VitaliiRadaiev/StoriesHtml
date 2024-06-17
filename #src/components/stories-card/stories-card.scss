@@ -61,10 +61,6 @@
         background-position: center;
         background-color: #000;
 
-        @media (min-width: 920px) {
-            filter: blur(8px);
-        }
-
         & img {
             height: 100%;
             width: 100%;

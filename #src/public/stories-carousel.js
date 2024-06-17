@@ -988,7 +988,11 @@ class StoriesCarousel {
 
             const isCarouselOpen = this.htmlContainer.classList.contains('stories-popup--open');
             if (isCarouselOpen && document.documentElement.clientWidth >= 920) {
-                if (!(e.target.closest('.swiper-slide') || e.target.closest('.slider-btn'))) {
+                if ( !(
+                    e.target.closest('.swiper-slide') 
+                    || e.target.closest('.slider-btn')
+                    || e.target.closest('[data-action="open-stories"]')
+                ) ) {
                     this.hide();
                 }
             }
