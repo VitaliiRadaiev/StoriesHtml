@@ -30,6 +30,18 @@
                             }
                         }
                     }
+
+                    @media (min-width: 920px) {
+                        & .stories-card::before, & .stories-card__body, & .stories-card__footer {
+                            opacity: 0;
+                        }
+                    }
+                }
+
+                @media (min-width: 920px) {
+                    & .stories-card::before, & .stories-card__body, & .stories-card__footer {
+                        transition: opacity .3s ease;
+                    }
                 }
             }
         }
