@@ -14,7 +14,6 @@
             & .swiper-slide {
                 height: 100%;
                 transition: scale 0.3s ease;
-                scale: 1.001;
                 animation: fadeIn 0.4s ease forwards;
 
                 &:not(.swiper-slide-active) {

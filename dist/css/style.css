@@ -246,7 +246,7 @@
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
   overflow: hidden;
-  border-radius: 1.6em;
+  border-radius: 0 0 1.6em 1.6em;
   position: relative;
   z-index: 2;
 }
@@ -528,6 +528,7 @@
   gap: 0.8em;
   position: relative;
   z-index: 2;
+  background-color: #fff;
 }
 
 .stories-card__description {
@@ -1050,7 +1051,6 @@
     -webkit-transition: scale 0.3s ease;
     -o-transition: scale 0.3s ease;
     transition: scale 0.3s ease;
-    scale: 1.001;
     -webkit-animation: fadeIn 0.4s ease forwards;
             animation: fadeIn 0.4s ease forwards;
   }
